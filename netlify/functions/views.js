@@ -1,9 +1,11 @@
 // Netlify Function to proxy view counter API (avoids CORS)
 export default async () => {
+  const API_TOKEN = process.env.COUNTER_API_TOKEN;
+
   try {
     const response = await fetch('https://api.counterapi.dev/v2/gdppercapitacom/gdppercapita-pageviews/up', {
       headers: {
-        'Authorization': 'Bearer ut_93yb2sjFcWhLgyRKbcoxjpCLePIQaexQXpuwI4QY'
+        'Authorization': `Bearer ${API_TOKEN}`
       }
     });
     const result = await response.json();
