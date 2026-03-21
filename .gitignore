@@ -1,0 +1,13 @@
+.DS_Store
+node_modules/
+.netlify/
+
+# Raw IMF data files (too large)
+data/dataset_*.csv
+data/dataset_*.xml
+data/dataset_DEFAULT_INTEGRATION_IMF*.json
+
+# Personal/dev files
+feedbacks/
+*.txt
+gdp-per-capita-worldbank.png

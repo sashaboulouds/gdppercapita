@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#10B981"/>
+
+  <!-- Line chart -->
+  <path d="M96 352L176 272L272 304L416 160" stroke="white" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Dots -->
+  <circle cx="96" cy="352" r="20" fill="white"/>
+  <circle cx="176" cy="272" r="20" fill="white"/>
+  <circle cx="272" cy="304" r="20" fill="white"/>
+  <circle cx="416" cy="160" r="20" fill="white"/>
+</svg>

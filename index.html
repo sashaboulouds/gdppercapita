@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GDP per capita (nominal) - IMF Data</title>
+  <meta name="description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.com</span>
+      </a>
+      <div class="header-right">
+        <span class="view-count" id="view-count"></span>
+        <button class="share-btn" id="btn-share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          Share
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>GDP per capita <span class="nominal-tag">(nominal)</span></h1>
+      <p class="description">Average economic output per person in a country per year, in current US dollars. <u>Not</u> adjusted for purchasing power or local prices (see <a href="#faq-ppp">why</a>).</p>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-layout">
+        <div class="country-panel">
+          <div class="panel-header">
+            <span class="panel-title">Selected (<span id="selected-count">0</span>)</span>
+            <button class="clear-btn" id="btn-clear">Clear all</button>
+          </div>
+          <div class="country-search">
+            <input type="text" id="country-input" placeholder="Search countries..." autocomplete="off">
+          </div>
+          <div class="country-list" id="country-list"></div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-container" id="chart-container">
+            <svg id="chart"></svg>
+            <div class="tooltip" id="tooltip"></div>
+          </div>
+          <div class="chart-footer">
+            <div class="chart-legend" id="chart-legend"></div>
+            <div class="chart-actions">
+              <button class="action-btn" id="btn-download-png" title="Download chart as PNG">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                PNG
+              </button>
+              <button class="action-btn" id="btn-download-json" title="Download data as JSON">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                JSON
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>What is GDP per capita?</summary>
+        <p>GDP per capita is a country's total economic output divided by its population — the average economic production per person, commonly used as an indicator of economic development.</p>
+      </details>
+
+      <details open>
+        <summary>How is it calculated?</summary>
+        <p>GDP per capita = Total GDP ÷ Population. GDP is measured via the expenditure approach (consumption + investment + government spending + net exports).</p>
+      </details>
+
+      <details open>
+        <summary>What does "current prices, US dollars" mean?</summary>
+        <p>GDP measured in nominal terms (not inflation-adjusted) and converted to US dollars at market exchange rates. The dollar serves as the global reference currency for international comparisons.</p>
+      </details>
+
+      <details open id="faq-ppp">
+        <summary>Why nominal GDP instead of PPP-adjusted?</summary>
+        <p>Purchasing Power Parity (PPP) adjusts for domestic price differences but systematically overestimates income in developing countries. The Balassa-Samuelson effect (1964) shows that non-traded goods are cheaper in poorer countries, inflating their PPP-adjusted income. Nominal GDP better reflects international purchasing power and power dynamics — the actual ability to buy imports, invest abroad, or hire foreign workers.</p>
+        <p class="reference">Reference: <a href="https://www.jstor.org/stable/1829464" target="_blank" rel="noopener">Balassa, B. (1964). "The Purchasing-Power Parity Doctrine: A Reappraisal." <em>Journal of Political Economy</em></a></p>
+      </details>
+
+      <details open>
+        <summary>What is the IMF World Economic Outlook?</summary>
+        <p>The IMF (founded 1944, 190 member countries) publishes the World Economic Outlook twice yearly, providing GDP data from 1980 plus 5-year projections based on staff macroeconomic analysis.</p>
+      </details>
+    </section>
+
+    <section class="source-section">
+      <h2>Source</h2>
+      <div class="source-info">
+        <div class="source-grid">
+          <div class="source-item">
+            <span class="source-label">Data provider</span>
+            <span class="source-value">International Monetary Fund, World Economic Outlook (October 2025)</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Retrieved</span>
+            <span class="source-value">March 21, 2026</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Next expected update</span>
+            <span class="source-value">March 21, 2027</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Date range</span>
+            <span class="source-value">1980 – 2030</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Unit</span>
+            <span class="source-value">Current US dollars per person</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">URL</span>
+            <span class="source-value"><a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">data.imf.org</a></span>
+          </div>
+        </div>
+        <p class="source-note">Note: Some countries (Afghanistan, Eritrea, Lebanon, Pakistan, Sri Lanka, Syria, West Bank and Gaza) show latest available data due to missing recent figures. Years after <span id="current-year-note"></span> are IMF projections.</p>
+      </div>
+    </section>
+
+    <section class="reuse-section">
+      <h2>Reuse this work</h2>
+      <p>IMF data is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>. Visualizations and code are <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> — use freely with attribution.</p>
+
+      <h3>How to cite</h3>
+      <div class="citation-box">
+        <code>International Monetary Fund (2026) – World Economic Outlook. Via gdppercapita.com</code>
+        <button class="copy-citation" id="btn-copy-citation">Copy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Source: <a href="https://data.imf.org" target="_blank" rel="noopener">IMF World Economic Outlook</a>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
