@@ -164,7 +164,8 @@ function renderCountryList(filter = '') {
 
   const selectedList = selectedCountries
     .map(code => countries.find(c => c.code === code))
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort((a, b) => b.value - a.value);
 
   let html = '';
 
