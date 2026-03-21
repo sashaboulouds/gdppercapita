@@ -10,4 +10,5 @@ data/dataset_DEFAULT_INTEGRATION_IMF*.json
 # Personal/dev files
 feedbacks/
 *.txt
+!robots.txt
 gdp-per-capita-worldbank.png

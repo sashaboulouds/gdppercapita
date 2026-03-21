@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why nominal GDP, not PPP - GDP per capita</title>
+  <meta name="description" content="Why we use nominal GDP per capita instead of PPP-adjusted figures. Understanding the Balassa-Samuelson effect and international purchasing power.">
+  <meta property="og:title" content="Why nominal GDP, not PPP">
+  <meta property="og:description" content="PPP systematically overestimates income in developing countries. Here's why nominal GDP better reflects real economic power.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gdppercapita.fyi/articles/why-nominal-not-ppp.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Why nominal GDP, not PPP">
+  <meta name="twitter:description" content="PPP systematically overestimates income in developing countries.">
+  <meta property="og:image" content="https://gdppercapita.fyi/og-image.png">
+  <meta name="twitter:image" content="https://gdppercapita.fyi/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/articles/why-nominal-not-ppp.html">
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why nominal GDP, not PPP",
+    "description": "PPP systematically overestimates income in developing countries. Here's why nominal GDP better reflects real economic power.",
+    "datePublished": "2026-03-21",
+    "author": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi",
+      "url": "https://gdppercapita.fyi"
+    },
+    "mainEntityOfPage": "https://gdppercapita.fyi/articles/why-nominal-not-ppp.html"
+  }
+  </script>
+</head>
+<body class="article-page">
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="article-nav" id="article-nav">
+    <div class="article-nav-content">
+      <span class="article-nav-title">Why nominal GDP, not PPP</span>
+      <a href="/" class="article-nav-cta">
+        Start exploring
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="page-content article-content">
+    <article>
+      <header class="article-header">
+        <p class="article-date">March 21, 2026</p>
+        <h1>Why nominal GDP, not PPP</h1>
+        <p class="article-subtitle">PPP systematically overestimates income in developing countries. Here's why nominal GDP better reflects real economic power.</p>
+      </header>
+
+      <div class="article-layout">
+        <nav class="toc">
+          <span class="toc-title">Contents</span>
+          <ul class="toc-list">
+            <li><a href="#what-is-ppp">What is PPP?</a></li>
+            <li><a href="#balassa-samuelson">Balassa-Samuelson</a></li>
+            <li><a href="#international-power">International power</a></li>
+            <li><a href="#when-ppp-makes-sense">When PPP works</a></li>
+            <li><a href="#why-ppp-dominates">Why PPP dominates</a></li>
+            <li><a href="#our-approach">Our approach</a></li>
+            <li><a href="#further-reading">Further reading</a></li>
+          </ul>
+        </nav>
+        <section class="article-body">
+        <h2 id="what-is-ppp">What is PPP?</h2>
+
+        <p>Purchasing Power Parity (PPP) is an adjustment that accounts for differences in local prices between countries. The idea is simple: a dollar buys more in India than in Switzerland, so PPP adjusts for this difference.</p>
+
+        <p>The most famous example is The Economist's <a href="https://www.economist.com/big-mac-index" target="_blank" rel="noopener">Big Mac Index</a>: if a Big Mac costs $5.69 in the US and $2.50 in India, PPP suggests the Indian rupee is "undervalued" and Indian incomes should be adjusted upward.</p>
+
+        <p>Here's a <a href="https://x.com/sc_cath/status/1999233784323948949" target="_blank" rel="noopener">concrete example</a> from economist Sylvain Catherine:</p>
+
+        <blockquote class="tweet-quote">
+          <p>"At market rates, a euro is worth 0.85 USD. The OECD says it's worth 0.66 USD in PPP. So <mark>using PPP inflates the European USD GDP</mark> relative to market exchange rates."</p>
+          <cite>
+            <strong>Sylvain Catherine</strong>
+            <a href="https://x.com/sc_cath" target="_blank" rel="noopener">@sc_cath</a>
+          </cite>
+        </blockquote>
+
+        <p>In other words: PPP makes Europe look 29% richer in dollar terms than it actually is at market exchange rates.</p>
+
+        <h2 id="balassa-samuelson">The problem: Balassa-Samuelson effect</h2>
+
+        <p>In 1964, economists Béla Balassa and Paul Samuelson independently discovered a systematic bias in PPP calculations. Their insight: <strong>non-traded goods (haircuts, housing, local services) are cheaper in poorer countries, but this doesn't reflect higher real income.</strong></p>
+
+        <p>Why are haircuts cheaper in India? Not because Indian barbers are more productive, but because wages are lower. PPP "corrects" for this price difference, but in doing so, it inflates the apparent income of Indians.</p>
+
+        <p>The effect is substantial. According to World Bank data, India's GDP per capita in 2024 was:</p>
+        <ul>
+          <li><strong>Nominal:</strong> ~$2,500</li>
+          <li><strong>PPP-adjusted:</strong> ~$9,500</li>
+        </ul>
+
+        <p>That's a 4x difference. PPP suggests Indians are nearly four times richer than nominal figures indicate. But can an Indian worker actually buy four times more stuff? No.</p>
+
+        <h2 id="international-power">International purchasing power</h2>
+
+        <p>Here's the key insight: <strong>PPP only works for local, non-traded goods.</strong> For anything that crosses borders, nominal GDP is what matters:</p>
+
+        <ul>
+          <li><strong>Imports:</strong> An iPhone costs roughly the same everywhere. A person earning $2,500 can't buy the same iPhone as someone earning $9,500.</li>
+          <li><strong>Foreign investment:</strong> Buying US stocks, real estate abroad, or investing in foreign companies requires actual dollars, not PPP-adjusted ones.</li>
+          <li><strong>International services:</strong> Hiring foreign workers, paying for international education, or accessing global healthcare.</li>
+          <li><strong>Geopolitical power:</strong> Military spending, foreign aid, and international influence are measured in real dollars.</li>
+        </ul>
+
+        <p>In an increasingly globalized world, international purchasing power matters more than ever.</p>
+
+        <h2 id="when-ppp-makes-sense">When PPP makes sense</h2>
+
+        <p>PPP isn't useless. It's appropriate when:</p>
+
+        <ul>
+          <li>Comparing domestic living standards (how much local stuff can you buy?)</li>
+          <li>Analyzing poverty thresholds (the $2.15/day poverty line is PPP-adjusted)</li>
+          <li>Comparing costs of living for expatriates</li>
+        </ul>
+
+        <p>But for most economic comparisons — GDP rankings, economic development, investment decisions, geopolitical analysis — nominal GDP is more meaningful.</p>
+
+        <h2 id="why-ppp-dominates">Why most sources use PPP</h2>
+
+        <p>Despite its flaws, PPP dominates popular data sources. <a href="https://ourworldindata.org" target="_blank" rel="noopener">Our World in Data</a>, for instance, only shows PPP-adjusted GDP per capita.</p>
+
+        <p>Why? Several reasons:</p>
+        <ul>
+          <li><strong>Political correctness:</strong> PPP makes developing countries look better, which feels more "fair"</li>
+          <li><strong>World Bank preference:</strong> The World Bank emphasizes PPP for poverty analysis</li>
+          <li><strong>Complexity:</strong> PPP is harder to calculate, which makes it seem more "sophisticated"</li>
+        </ul>
+
+        <p>But here's the thing: if we genuinely care about economic development, we need accurate indicators — not flattering ones. If your scale is broken, you can't measure progress. If your thermometer lies, you can't diagnose the problem or prescribe the right treatment.</p>
+
+        <p>Choosing "fairness" over accuracy is prioritizing social posture over tangible benefits for the very countries we claim to help. PPP has its merits for specific use cases, but using it as the default metric obscures reality rather than illuminating it.</p>
+
+        <p>We think transparency is more important than flattery. Nominal GDP tells you what you can actually do with money in the global economy — and that's what matters for real economic decisions.</p>
+
+        <h2 id="our-approach">Our approach</h2>
+
+        <p>At gdppercapita.fyi, we show nominal GDP per capita in current US dollars. This reflects:</p>
+
+        <ul>
+          <li>Actual international purchasing power</li>
+          <li>Real economic capacity in the global market</li>
+          <li>The currency that serves as the global reserve</li>
+        </ul>
+
+        <p>We believe economic data should be accurate, not flattering. Nominal GDP provides a clearer picture of where countries actually stand.</p>
+
+        <h2 id="further-reading">Further reading</h2>
+
+        <ul>
+          <li><a href="https://www.jstor.org/stable/1829464" target="_blank" rel="noopener">Balassa, B. (1964). "The Purchasing-Power Parity Doctrine: A Reappraisal." <em>Journal of Political Economy</em></a></li>
+          <li><a href="https://www.nber.org/papers/w1564" target="_blank" rel="noopener">Samuelson, P. (1964). "Theoretical Notes on Trade Problems." <em>Review of Economics and Statistics</em></a></li>
+        </ul>
+
+        <p><a href="/">← Back to GDP per capita chart</a></p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data. Charts and code are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>. Data from IMF is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this.html">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
+          <a href="/changelog.html">Changelog</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Sticky article nav - appears when h1 scrolls out of view
+    const articleNav = document.getElementById('article-nav');
+    const articleTitle = document.querySelector('.article-header h1');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio < 1) {
+          articleNav.classList.add('visible');
+        } else {
+          articleNav.classList.remove('visible');
+        }
+      });
+    }, { threshold: 1 });
+
+    navObserver.observe(articleTitle);
+
+    // Scrollspy for TOC
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const sections = document.querySelectorAll('.article-body h2[id]');
+
+    const scrollSpy = () => {
+      const scrollPos = window.scrollY + 120;
+
+      sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const nextSection = sections[index + 1];
+        const sectionBottom = nextSection ? nextSection.offsetTop : document.body.scrollHeight;
+
+        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc-list a[href="#${section.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', scrollSpy);
+    scrollSpy();
+  </script>
+</body>
+</html>

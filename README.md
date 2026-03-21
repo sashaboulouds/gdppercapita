@@ -1,47 +1,48 @@
 # GDP Per Capita
 
-Minimalist website to visualize GDP per capita (nominal) across countries.
+Minimalist website to visualize GDP per capita (nominal) across countries using IMF data.
 
-**Domain:** gdppercapita.com (or gdp-per-capita.com)
+**Live:** [gdppercapita.fyi](https://gdppercapita.fyi)
 
 ## Why this site?
 
 Existing alternatives have limitations:
-- **Wikipedia**: Up-to-date IMF 2026 data, but just a table with no charts or filters
-- **World Bank**: UX too complex
-- **Worldometers**: Also just a table
-- **Our World in Data**: PPP-adjusted data, not raw nominal figures
+- **Our World in Data**: PPP-adjusted data only, not nominal
+- **Wikipedia**: Up-to-date IMF data, but just a static table
+- **World Bank**: Complex UX, data stops at 2024, no JSON export
+- **IMF Data Explorer**: No visualization
 
-**Our approach:** Table + time series charts, country filtering, raw nominal data, simple and fast UX.
+**Our approach:** Interactive chart with country comparison, nominal GDP (not PPP), data through 2030, simple and fast UX.
 
 ## Features
 
-- **Table**: List of countries with GDP per capita, sortable and filterable
-- **Chart**: Time series evolution, compare multiple countries
-- **Filters**: Select specific countries for comparison
-- **Responsive**: Desktop and mobile
+- Interactive D3.js chart comparing countries over time
+- 197 countries from IMF World Economic Outlook 2026
+- Historical data (1980-2025) + IMF projections (2026-2030)
+- Country selector with search and GDP bars (up to 20 countries)
+- Export to PNG and JSON
+- Shareable URLs
+- Mobile responsive
+
+## Articles
+
+- [Why we built this site](https://gdppercapita.fyi/articles/why-we-built-this.html)
+- [Why nominal GDP, not PPP](https://gdppercapita.fyi/articles/why-nominal-not-ppp.html)
 
 ## Data source
 
-**IMF World Economic Outlook (WEO) 2026**
-- Source: https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)
-- Wikipedia reference: https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita
+**IMF World Economic Outlook (October 2025)**
+- Indicator: NGDPDPC (GDP per capita, current prices, USD)
+- Source: [data.imf.org](https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0))
 
-> Note: Afghanistan, Lebanon, Palestine, and Sri Lanka use 2023-2024 data.
+> Note: Some countries (Afghanistan, Eritrea, Lebanon, Pakistan, Sri Lanka, Syria, West Bank and Gaza) show latest available data due to missing recent figures.
 
 ## Tech stack
 
-- **Frontend**: Vanilla HTML/CSS/JS (or lightweight framework TBD)
-- **Data**: Static JSON (no backend)
-- **Charts**: TBD (Chart.js, D3.js, or other)
-- **Hosting**: Static (Vercel, Netlify, GitHub Pages)
-
-## Style
-
-- Minimalist
-- Functional
-- Fast (no bloat)
-- Clean typography
+- **Frontend**: Vanilla HTML/CSS/JS
+- **Charts**: D3.js
+- **Data**: Static JSON (239KB)
+- **Hosting**: Netlify
 
 ## Structure
 
@@ -50,20 +51,25 @@ Existing alternatives have limitations:
 ├── index.html
 ├── style.css
 ├── app.js
+├── favicon.svg
 ├── data/
 │   └── gdp-per-capita.json
+├── articles/
+│   ├── why-we-built-this.html
+│   └── why-nominal-not-ppp.html
+├── changelog.html
+├── netlify/
+│   └── functions/
+│       └── views.js
 └── README.md
 ```
 
-## TODO
+## Links
 
-- [ ] Fetch IMF data and format as JSON
-- [ ] Build sortable/filterable table
-- [ ] Add time series charts
-- [ ] Country selector for comparison
-- [ ] Responsive design
-- [ ] Deploy
+- GitHub: [github.com/sashaboulouds/gdppercapita](https://github.com/sashaboulouds/gdppercapita)
 
 ## License
 
-MIT
+Code: MIT
+Charts & visualizations: CC BY 4.0
+Data: Subject to [IMF Terms of Use](https://www.imf.org/external/terms.htm)

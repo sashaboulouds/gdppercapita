@@ -6,7 +6,9 @@ let hoveredCountry = null;
 
 const COLORS = [
   '#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6',
-  '#EC4899', '#14B8A6', '#F97316', '#6366F1', '#84CC16'
+  '#EC4899', '#14B8A6', '#F97316', '#6366F1', '#84CC16',
+  '#06B6D4', '#A855F7', '#F43F5E', '#22C55E', '#0EA5E9',
+  '#D946EF', '#FB923C', '#4ADE80', '#818CF8', '#FBBF24'
 ];
 
 // Stable color assignment - each country keeps its color
@@ -157,33 +159,26 @@ function renderCountryList(filter = '') {
     );
   }
 
-  countries.sort((a, b) => {
-    const aSelected = selectedCountries.includes(a.code);
-    const bSelected = selectedCountries.includes(b.code);
-    if (aSelected && !bSelected) return -1;
-    if (!aSelected && bSelected) return 1;
-    return b.value - a.value;
-  });
+  // Keep countries sorted by GDP (no reordering based on selection)
+  // But show selected countries at top as a separate section
 
-  container.innerHTML = countries.map(c => {
-    const isSelected = selectedCountries.includes(c.code);
-    const barColor = isSelected ? getCountryColor(c.code) : '#d1d5db';
-    const barWidth = maxGdp > 0 ? (c.value / maxGdp) * 100 : 0;
-    const yearNote = c.latestYear < currentYear ? ` (${c.latestYear})` : '';
+  const selectedList = selectedCountries
+    .map(code => countries.find(c => c.code === code))
+    .filter(Boolean);
 
-    return `
-      <div class="country-item ${isSelected ? 'selected' : ''}" data-code="${c.code}">
-        <div class="country-checkbox"></div>
-        <div class="country-info">
-          <span class="country-name">${c.name}</span>
-          <div class="country-bar-container">
-            <div class="country-bar" style="width: ${barWidth}%; background: ${barColor}"></div>
-          </div>
-        </div>
-        <span class="country-value">$${formatNumber(c.value)}${yearNote}</span>
-      </div>
-    `;
-  }).join('');
+  let html = '';
+
+  // Selected section at top (if any selected and not filtering)
+  if (selectedList.length > 0 && !filter) {
+    html += '<div class="country-section-label">Selected</div>';
+    html += selectedList.map(c => renderCountryItem(c, true)).join('');
+    html += '<div class="country-section-label">All countries</div>';
+  }
+
+  // All countries sorted by GDP
+  html += countries.map(c => renderCountryItem(c, false)).join('');
+
+  container.innerHTML = html;
 
   container.querySelectorAll('.country-item').forEach(item => {
     item.addEventListener('click', () => toggleCountry(item.dataset.code));
@@ -193,6 +188,26 @@ function renderCountryList(filter = '') {
       item.addEventListener('mouseleave', () => setHoveredCountry(null));
     }
   });
+}
+
+function renderCountryItem(c, isInSelectedSection) {
+  const isSelected = selectedCountries.includes(c.code);
+  const barColor = isSelected ? getCountryColor(c.code) : '#d1d5db';
+  const barWidth = maxGdp > 0 ? (c.value / maxGdp) * 100 : 0;
+  const yearNote = c.latestYear < currentYear ? ` (${c.latestYear})` : '';
+
+  return `
+    <div class="country-item ${isSelected ? 'selected' : ''}" data-code="${c.code}">
+      <div class="country-checkbox"></div>
+      <div class="country-info">
+        <span class="country-name">${c.name}</span>
+        <div class="country-bar-container">
+          <div class="country-bar" style="width: ${barWidth}%; background: ${barColor}"></div>
+        </div>
+      </div>
+      <span class="country-value">$${formatNumber(c.value)}${yearNote}</span>
+    </div>
+  `;
 }
 
 function setHoveredCountry(code) {
@@ -212,20 +227,50 @@ function updateChartHighlight() {
 }
 
 function toggleCountry(code) {
+  const container = document.getElementById('country-list');
+  const wasSelected = selectedCountries.includes(code);
+  const prevSelectedCount = selectedCountries.length;
+  const scrollTop = container.scrollTop;
+
+  // Measure actual heights before change
+  const existingItem = container.querySelector('.country-item');
+  const existingLabel = container.querySelector('.country-section-label');
+  const itemHeight = existingItem ? existingItem.offsetHeight : 45;
+  const labelHeight = existingLabel ? existingLabel.offsetHeight : 25;
+
   const idx = selectedCountries.indexOf(code);
   if (idx === -1) {
-    if (selectedCountries.length >= 10) {
-      showToast('Maximum 10 countries');
+    if (selectedCountries.length >= 20) {
+      showToast('Maximum 20 countries');
       return;
     }
     selectedCountries.push(code);
   } else {
     selectedCountries.splice(idx, 1);
   }
-  renderCountryList(document.getElementById('country-input').value.toLowerCase());
+
+  const filter = document.getElementById('country-input').value.toLowerCase();
+  renderCountryList(filter);
   renderChart();
   updateURL();
   updateSelectedCount();
+
+  // Adjust scroll to keep clicked item in place
+  if (!filter) {
+    if (!wasSelected && prevSelectedCount === 0) {
+      // First selection: "Selected" label + item + "All countries" label added at top
+      container.scrollTop = scrollTop + labelHeight + itemHeight + labelHeight;
+    } else if (!wasSelected) {
+      // Adding another: just one item added to Selected section
+      container.scrollTop = scrollTop + itemHeight;
+    } else if (wasSelected && selectedCountries.length === 0) {
+      // Deselected last one: both labels + item removed
+      container.scrollTop = Math.max(0, scrollTop - labelHeight - itemHeight - labelHeight);
+    } else {
+      // Deselected but others remain: one item removed from Selected
+      container.scrollTop = Math.max(0, scrollTop - itemHeight);
+    }
+  }
 }
 
 function updateURL() {
@@ -539,7 +584,7 @@ function downloadPNG() {
     ctx.fillStyle = '#10B981';
     ctx.font = 'bold 17px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText('gdppercapita.com', canvasWidth - padding, footerY);
+    ctx.fillText('gdppercapita.fyi', canvasWidth - padding, footerY);
 
     // Cleanup
     document.body.removeChild(tempContainer);

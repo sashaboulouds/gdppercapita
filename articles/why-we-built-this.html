@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why we built gdppercapita.fyi - GDP per capita</title>
+  <meta name="description" content="Why we created a simple, open-source tool to visualize GDP per capita using IMF data.">
+  <meta property="og:title" content="Why we built gdppercapita.fyi">
+  <meta property="og:description" content="Existing tools for GDP per capita data are either inaccurate, hard to use, or lack visualization. We built something better.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gdppercapita.fyi/articles/why-we-built-this.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Why we built gdppercapita.fyi">
+  <meta name="twitter:description" content="Existing tools for GDP per capita data are either inaccurate, hard to use, or lack visualization.">
+  <meta property="og:image" content="https://gdppercapita.fyi/og-image.png">
+  <meta name="twitter:image" content="https://gdppercapita.fyi/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/articles/why-we-built-this.html">
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why we built this site",
+    "description": "Existing tools for GDP per capita data are either inaccurate, hard to use, or lack visualization. We built something better.",
+    "datePublished": "2026-03-21",
+    "author": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi",
+      "url": "https://gdppercapita.fyi"
+    },
+    "mainEntityOfPage": "https://gdppercapita.fyi/articles/why-we-built-this.html"
+  }
+  </script>
+</head>
+<body class="article-page">
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="article-nav" id="article-nav">
+    <div class="article-nav-content">
+      <span class="article-nav-title">Why we built this site</span>
+      <a href="/" class="article-nav-cta">
+        Start exploring
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="page-content article-content">
+    <article>
+      <header class="article-header">
+        <p class="article-date">March 21, 2026</p>
+        <h1>Why we built this site</h1>
+        <p class="article-subtitle">Existing tools for GDP per capita data are either inaccurate, hard to use, or lack visualization. We built something better.</p>
+      </header>
+
+      <div class="article-layout">
+        <nav class="toc">
+          <span class="toc-title">Contents</span>
+          <ul class="toc-list">
+            <li><a href="#problem">The problem</a></li>
+            <li><a href="#comparison">Comparison</a></li>
+            <li><a href="#what-we-offer">What we offer</a></li>
+            <li><a href="#philosophy">Our philosophy</a></li>
+          </ul>
+        </nav>
+        <section class="article-body">
+        <h2 id="problem">The problem with existing sources</h2>
+
+        <p>When you search for GDP per capita data, you'll find several options. None of them are ideal.</p>
+
+        <h3>Our World in Data</h3>
+        <p><a href="https://ourworldindata.org/grapher/gdp-per-capita-worldbank" target="_blank" rel="noopener">Our World in Data</a> is a fantastic resource with 2M+ monthly visitors and beautiful visualizations. But there's a catch: <strong>they only show PPP-adjusted data</strong>.</p>
+
+        <p>PPP (Purchasing Power Parity) systematically overestimates income in developing countries due to the <a href="/articles/why-nominal-not-ppp.html">Balassa-Samuelson effect</a>. It also fails to capture international purchasing power — the actual ability to buy imports, invest abroad, or hire foreign workers. For many use cases, nominal GDP per capita is more useful.</p>
+
+        <h3>Wikipedia</h3>
+        <p><a href="https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita" target="_blank" rel="noopener">Wikipedia's list</a> has excellent data with a Domain Rating of 97 and 848M monthly visits. The IMF data is up-to-date. But it's just a static table — no charts, no filtering, no way to compare countries over time.</p>
+
+        <h3>World Bank</h3>
+        <p>The <a href="https://data.worldbank.org/indicator/NY.GDP.PCAP.CD" target="_blank" rel="noopener">World Bank's data portal</a> has good data and visualization. But the interface is frustrating: selecting and deselecting countries requires clicking tiny crosses, there's no JSON export, and data stops at 2024.</p>
+
+        <h3>IMF Data Explorer</h3>
+        <p>The <a href="https://data.imf.org/en/Data-Explorer" target="_blank" rel="noopener">IMF Data Explorer</a> is the primary source — 2026 data, JSON export, nominal GDP per capita. But there's no visualization at all. It's a data dump, not a tool.</p>
+
+        <h2 id="comparison">Comparison</h2>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nominal GDP</th>
+                <th>Visualization</th>
+                <th>2026 data</th>
+                <th>Projections</th>
+                <th>JSON export</th>
+                <th>Easy to use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="source-name">Our World in Data</td>
+                <td class="no"></td>
+                <td class="yes"></td>
+                <td class="no"></td>
+                <td class="no"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+              </tr>
+              <tr>
+                <td class="source-name">Wikipedia</td>
+                <td class="yes"></td>
+                <td class="no"></td>
+                <td class="yes"></td>
+                <td class="no"></td>
+                <td class="no"></td>
+                <td class="yes"></td>
+              </tr>
+              <tr>
+                <td class="source-name">World Bank</td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="no"></td>
+                <td class="no"></td>
+                <td class="no"></td>
+                <td class="no"></td>
+              </tr>
+              <tr>
+                <td class="source-name">IMF Data Explorer</td>
+                <td class="yes"></td>
+                <td class="no"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="no"></td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="source-name">gdppercapita.fyi</td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+                <td class="yes"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="what-we-offer">What we offer</h2>
+
+        <p>We built gdppercapita.fyi to fill this gap:</p>
+
+        <ul>
+          <li><strong>Up-to-date data</strong> — IMF World Economic Outlook 2026, including projections to 2030</li>
+          <li><strong>Nominal GDP</strong> — Not PPP-adjusted, so you get real international purchasing power</li>
+          <li><strong>Simple visualization</strong> — Compare countries over time with an intuitive interface</li>
+          <li><strong>Easy data export</strong> — Download PNG charts or raw JSON data</li>
+          <li><strong>Shareable URLs</strong> — Every country selection has a unique URL</li>
+          <li><strong>Open source</strong> — MIT licensed, <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener">available on GitHub</a></li>
+        </ul>
+
+        <h2 id="philosophy">Our philosophy</h2>
+
+        <p>We believe economic data should be accessible, accurate, and easy to understand. No paywalls, no complex interfaces, no misleading adjustments. Just the data, visualized clearly.</p>
+
+        <p><a href="/">Start exploring →</a></p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data. Charts and code are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>. Data from IMF is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this.html">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
+          <a href="/changelog.html">Changelog</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Sticky article nav - appears when h1 scrolls out of view
+    const articleNav = document.getElementById('article-nav');
+    const articleTitle = document.querySelector('.article-header h1');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio < 1) {
+          articleNav.classList.add('visible');
+        } else {
+          articleNav.classList.remove('visible');
+        }
+      });
+    }, { threshold: 1 });
+
+    navObserver.observe(articleTitle);
+
+    // Scrollspy for TOC
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const sections = document.querySelectorAll('.article-body h2[id]');
+
+    const scrollSpy = () => {
+      const scrollPos = window.scrollY + 120;
+
+      sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const nextSection = sections[index + 1];
+        const sectionBottom = nextSection ? nextSection.offsetTop : document.body.scrollHeight;
+
+        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc-list a[href="#${section.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', scrollSpy);
+    scrollSpy();
+  </script>
+</body>
+</html>

@@ -5,8 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GDP per capita (nominal) - IMF Data</title>
   <meta name="description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <meta property="og:title" content="GDP per capita (nominal) - IMF Data">
+  <meta property="og:description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gdppercapita.fyi/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GDP per capita (nominal) - IMF Data">
+  <meta name="twitter:description" content="Compare GDP per capita across countries with IMF data (1980-2030).">
+  <meta property="og:image" content="https://gdppercapita.fyi/og-image.png">
+  <meta name="twitter:image" content="https://gdppercapita.fyi/og-image.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "GDP per capita",
+    "url": "https://gdppercapita.fyi",
+    "description": "GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "GDP per capita (nominal) by country",
+    "description": "GDP per capita in current US dollars for 197 countries from 1980 to 2030, including IMF projections.",
+    "url": "https://gdppercapita.fyi",
+    "license": "https://www.imf.org/external/terms.htm",
+    "creator": {
+      "@type": "Organization",
+      "name": "International Monetary Fund",
+      "url": "https://www.imf.org"
+    },
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://gdppercapita.fyi/data/gdp-per-capita.json"
+    },
+    "temporalCoverage": "1980/2030",
+    "spatialCoverage": "Global",
+    "variableMeasured": "GDP per capita in current US dollars"
+  }
+  </script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
@@ -17,7 +63,7 @@
           <rect width="32" height="32" rx="6" fill="#10B981"/>
           <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
-        <span class="logo-text">gdppercapita.com</span>
+        <span class="logo-text">gdppercapita.fyi</span>
       </a>
       <div class="header-right">
         <span class="view-count" id="view-count"></span>
@@ -146,16 +192,41 @@
 
       <h3>How to cite</h3>
       <div class="citation-box">
-        <code>International Monetary Fund (2026) – World Economic Outlook. Via gdppercapita.com</code>
+        <code>International Monetary Fund (2026) – World Economic Outlook. Via gdppercapita.fyi</code>
         <button class="copy-citation" id="btn-copy-citation">Copy</button>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>
-      Source: <a href="https://data.imf.org" target="_blank" rel="noopener">IMF World Economic Outlook</a>
-    </p>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data. Charts and code are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>. Data from IMF is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this.html">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
+          <a href="/changelog.html">Changelog</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <script src="app.js"></script>

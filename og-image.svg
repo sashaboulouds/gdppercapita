@@ -1,0 +1,51 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#f0f0f0" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Chart visualization (decorative) - bigger -->
+  <g transform="translate(620, 120)">
+    <!-- Axis -->
+    <line x1="0" y1="360" x2="520" y2="360" stroke="#e0e0e0" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="360" stroke="#e0e0e0" stroke-width="2"/>
+
+    <!-- Lines representing GDP trends -->
+    <path d="M 0 280 Q 130 250 190 220 T 320 140 T 450 80 T 520 30" stroke="#10B981" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 0 320 Q 130 305 190 280 T 320 220 T 450 190 T 520 160" stroke="#3B82F6" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 0 340 Q 130 330 190 315 T 320 290 T 450 270 T 520 250" stroke="#F59E0B" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+    <!-- End dots -->
+    <circle cx="520" cy="30" r="8" fill="#10B981"/>
+    <circle cx="520" cy="160" r="8" fill="#3B82F6"/>
+    <circle cx="520" cy="250" r="8" fill="#F59E0B"/>
+  </g>
+
+  <!-- Logo -->
+  <g transform="translate(80, 80)">
+    <rect width="56" height="56" rx="10" fill="#10B981"/>
+    <path d="M14 42V26M23 42V18M32 42V30M41 42V14" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text content -->
+  <text x="80" y="200" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="56" font-weight="600" fill="#1a1a1a">GDP per capita</text>
+  <text x="80" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="40" font-weight="400" fill="#666666">(nominal)</text>
+
+  <text x="80" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" fill="#666666">Compare countries over time</text>
+  <text x="80" y="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" fill="#666666">with IMF World Economic Outlook data</text>
+
+  <!-- Domain -->
+  <text x="80" y="540" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="600" fill="#10B981">gdppercapita.fyi</text>
+
+  <!-- Data badge - wider padding -->
+  <g transform="translate(80, 440)">
+    <rect width="240" height="40" rx="20" fill="#f0fdf4" stroke="#10B981" stroke-width="2"/>
+    <text x="120" y="27" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#10B981">197 countries • 1980-2030</text>
+  </g>
+</svg>
