@@ -1149,6 +1149,15 @@ body.article-page > header {
   font-size: 0.95rem;
 }
 
+.changelog-entry a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.changelog-entry a:hover {
+  text-decoration: underline;
+}
+
 /* Toast */
 .toast {
   position: fixed;
