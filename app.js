@@ -312,8 +312,9 @@ function renderChart() {
     return;
   }
 
-  const labelWidth = 110;
-  const margin = { top: 20, right: labelWidth + 20, bottom: 40, left: 60 };
+  const labelWidth = width < 350 ? 70 : width < 450 ? 90 : 110;
+  const leftMargin = width < 350 ? 45 : 60;
+  const margin = { top: 20, right: labelWidth + 15, bottom: 40, left: leftMargin };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -337,16 +338,21 @@ function renderChart() {
   const x = d3.scaleLinear().domain(d3.extent(data.years)).range([0, innerWidth]);
   const y = d3.scaleLinear().domain([0, d3.max(allValues) * 1.1]).range([innerHeight, 0]);
 
+  const xTicks = width < 350 ? 4 : width < 450 ? 6 : 10;
   g.append('g')
     .attr('transform', `translate(0, ${innerHeight})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(10))
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(xTicks))
     .selectAll('text').style('font-size', '11px');
 
+  const yTicks = width < 400 ? 4 : 6;
+  const yFormat = width < 400
+    ? d => d >= 1000 ? '$' + (d/1000) + 'K' : '$' + d
+    : d => '$' + d3.format(',.0f')(d);
   g.append('g')
-    .call(d3.axisLeft(y).tickFormat(d => '$' + d3.format(',.0f')(d)).ticks(6))
+    .call(d3.axisLeft(y).tickFormat(yFormat).ticks(yTicks))
     .selectAll('text').style('font-size', '11px');
 
-  g.append('g').selectAll('line').data(y.ticks(6)).join('line')
+  g.append('g').selectAll('line').data(y.ticks(yTicks)).join('line')
     .attr('x1', 0).attr('x2', innerWidth)
     .attr('y1', d => y(d)).attr('y2', d => y(d))
     .attr('stroke', '#e0e0e0').attr('stroke-dasharray', '2,2');
@@ -359,11 +365,22 @@ function renderChart() {
   }).sort((a, b) => a.y - b.y);
 
   const minGap = 14;
+  const maxY = innerHeight - 15;
+  // First pass: push labels down
   for (let i = 1; i < labelPositions.length; i++) {
     const prev = labelPositions[i - 1];
     const curr = labelPositions[i];
     if (curr.y - prev.y < minGap) {
       curr.y = prev.y + minGap;
+    }
+  }
+  // Second pass: if labels exceed maxY, push them up
+  for (let i = labelPositions.length - 1; i >= 0; i--) {
+    if (labelPositions[i].y > maxY) {
+      labelPositions[i].y = maxY;
+    }
+    if (i > 0 && labelPositions[i].y - labelPositions[i - 1].y < minGap) {
+      labelPositions[i - 1].y = labelPositions[i].y - minGap;
     }
   }
 
@@ -406,7 +423,7 @@ function renderChart() {
 
   labelPositions.forEach(lp => {
     const xEnd = innerWidth;
-    const xLabel = xEnd + 8;
+    const xLabel = xEnd + 14;
 
     if (Math.abs(lp.y - lp.originalY) > 2) {
       g.append('path')
@@ -417,15 +434,18 @@ function renderChart() {
         .attr('fill', 'none');
     }
 
+    const maxChars = width < 400 ? 10 : 14;
+    const labelFontSize = width < 400 ? '9px' : '11px';
+    const displayName = lp.name.length > maxChars ? lp.name.substring(0, maxChars - 1) + '…' : lp.name;
     g.append('text')
       .attr('class', `country-label label-${lp.code}`)
       .attr('x', xLabel)
       .attr('y', lp.y)
       .attr('dy', '0.35em')
       .attr('fill', lp.color)
-      .attr('font-size', '11px')
+      .attr('font-size', labelFontSize)
       .attr('font-weight', '500')
-      .text(lp.name.length > 14 ? lp.name.substring(0, 13) + '…' : lp.name)
+      .text(displayName)
       .style('cursor', 'pointer')
       .on('mouseenter', () => setHoveredCountry(lp.code))
       .on('mouseleave', () => setHoveredCountry(null));

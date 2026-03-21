@@ -1222,19 +1222,26 @@ body.article-page > header {
 @media (max-width: 768px) {
   .chart-layout {
     flex-direction: column;
+    min-height: auto;
   }
 
   .country-panel {
     width: 100%;
-    max-height: 200px;
+    max-height: none;
   }
 
   .country-list {
-    max-height: 150px;
+    max-height: 180px;
   }
 
   .chart-container {
-    min-height: 300px;
+    height: 350px;
+    flex: none;
+  }
+
+  /* Hide TOC on mobile articles */
+  .toc {
+    display: none;
   }
 
   .chart-footer {
@@ -1272,5 +1279,11 @@ body.article-page > header {
 
   .source-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 370px) {
+  .view-count {
+    display: none;
   }
 }
