@@ -479,10 +479,8 @@ h1 {
 }
 
 .crosshair {
-  stroke: var(--text-muted);
+  stroke: #e5e5e5;
   stroke-width: 1;
-  stroke-dasharray: 3, 3;
-  opacity: 0.5;
 }
 
 /* FAQ Section */

@@ -384,6 +384,12 @@ function renderChart() {
     }
   }
 
+  // Crosshair (behind lines and points)
+  const crosshair = g.append('line')
+    .attr('class', 'crosshair')
+    .attr('y1', 0).attr('y2', innerHeight)
+    .style('opacity', 0);
+
   series.forEach(s => {
     const historical = s.values.filter(d => !d.isProjection);
     if (historical.length > 0) {
@@ -415,10 +421,8 @@ function renderChart() {
       .attr('class', `chart-point point-${s.code}`)
       .attr('cx', d => x(d.year))
       .attr('cy', d => y(d.value))
-      .attr('r', 3)
-      .attr('fill', s.color)
-      .attr('stroke', '#fff')
-      .attr('stroke-width', 1);
+      .attr('r', 2)
+      .attr('fill', s.color);
   });
 
   labelPositions.forEach(lp => {
@@ -451,11 +455,6 @@ function renderChart() {
       .on('mouseleave', () => setHoveredCountry(null));
   });
 
-  const crosshair = g.append('line')
-    .attr('class', 'crosshair')
-    .attr('y1', 0).attr('y2', innerHeight)
-    .style('opacity', 0);
-
   const overlay = g.append('rect')
     .attr('width', innerWidth)
     .attr('height', innerHeight)
@@ -470,7 +469,7 @@ function renderChart() {
     crosshair.attr('x1', x(clampedYear)).attr('x2', x(clampedYear)).style('opacity', 1);
 
     series.forEach(s => {
-      g.selectAll(`.point-${s.code}`).attr('r', d => d.year === clampedYear ? 5 : 3);
+      g.selectAll(`.point-${s.code}`).attr('r', d => d.year === clampedYear ? 4 : 2);
     });
 
     const tooltipData = series
@@ -510,7 +509,7 @@ function renderChart() {
   overlay.on('mouseleave', function() {
     crosshair.style('opacity', 0);
     tooltip.classList.remove('active');
-    series.forEach(s => g.selectAll(`.point-${s.code}`).attr('r', 3));
+    series.forEach(s => g.selectAll(`.point-${s.code}`).attr('r', 2));
   });
 
   document.getElementById('chart-legend').innerHTML = `
@@ -702,7 +701,7 @@ function renderChartToSvg(svg, width, height) {
     // Points
     g.selectAll(`.point-export-${s.code}`).data(s.values).join('circle')
       .attr('cx', d => x(d.year)).attr('cy', d => y(d.value))
-      .attr('r', 4).attr('fill', s.color).attr('stroke', '#fff').attr('stroke-width', 1.5);
+      .attr('r', 3).attr('fill', s.color);
   });
 
   // Labels
