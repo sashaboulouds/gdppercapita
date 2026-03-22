@@ -233,10 +233,10 @@ function toggleCountry(code) {
   const prevSelectedCount = selectedCountries.length;
   const scrollTop = container.scrollTop;
 
-  // Measure actual heights before change
-  const existingItem = container.querySelector('.country-item');
+  // Measure height of the clicked item before re-render
+  const clickedItem = container.querySelector(`.country-item[data-code="${code}"]`);
+  const clickedItemHeight = clickedItem ? clickedItem.offsetHeight : 45;
   const existingLabel = container.querySelector('.country-section-label');
-  const itemHeight = existingItem ? existingItem.offsetHeight : 45;
   const labelHeight = existingLabel ? existingLabel.offsetHeight : 25;
 
   const idx = selectedCountries.indexOf(code);
@@ -260,16 +260,16 @@ function toggleCountry(code) {
   if (!filter) {
     if (!wasSelected && prevSelectedCount === 0) {
       // First selection: "Selected" label + item + "All countries" label added at top
-      container.scrollTop = scrollTop + labelHeight + itemHeight + labelHeight;
+      container.scrollTop = scrollTop + labelHeight + clickedItemHeight + labelHeight;
     } else if (!wasSelected) {
       // Adding another: just one item added to Selected section
-      container.scrollTop = scrollTop + itemHeight;
+      container.scrollTop = scrollTop + clickedItemHeight;
     } else if (wasSelected && selectedCountries.length === 0) {
       // Deselected last one: both labels + item removed
-      container.scrollTop = Math.max(0, scrollTop - labelHeight - itemHeight - labelHeight);
+      container.scrollTop = Math.max(0, scrollTop - labelHeight - clickedItemHeight - labelHeight);
     } else {
       // Deselected but others remain: one item removed from Selected
-      container.scrollTop = Math.max(0, scrollTop - itemHeight);
+      container.scrollTop = Math.max(0, scrollTop - clickedItemHeight);
     }
   }
 }
@@ -312,7 +312,14 @@ function renderChart() {
     return;
   }
 
-  const labelWidth = width < 350 ? 70 : width < 450 ? 90 : 110;
+  // Calculate labelWidth based on longest selected country name
+  const longestName = selectedCountries.reduce((max, code) => {
+    const country = data.countries.find(c => c.code === code);
+    return country && country.name.length > max ? country.name.length : max;
+  }, 0);
+  const charWidth = width < 400 ? 5 : 6;
+  const labelWidth = Math.max(60, longestName * charWidth + 10);
+
   const leftMargin = width < 350 ? 45 : 60;
   const margin = { top: 20, right: labelWidth + 15, bottom: 40, left: leftMargin };
   const innerWidth = width - margin.left - margin.right;
@@ -368,10 +375,8 @@ function renderChart() {
   const maxY = innerHeight - 15;
   // First pass: push labels down
   for (let i = 1; i < labelPositions.length; i++) {
-    const prev = labelPositions[i - 1];
-    const curr = labelPositions[i];
-    if (curr.y - prev.y < minGap) {
-      curr.y = prev.y + minGap;
+    if (labelPositions[i].y - labelPositions[i - 1].y < minGap) {
+      labelPositions[i].y = labelPositions[i - 1].y + minGap;
     }
   }
   // Second pass: if labels exceed maxY, push them up
@@ -411,7 +416,7 @@ function renderChart() {
         .attr('fill', 'none')
         .attr('stroke', s.color)
         .attr('stroke-width', 2)
-        .attr('stroke-dasharray', '5,5')
+        .attr('stroke-dasharray', '1,3').attr('stroke-linecap', 'round')
         .attr('d', line);
     }
 
@@ -438,9 +443,7 @@ function renderChart() {
         .attr('fill', 'none');
     }
 
-    const maxChars = width < 400 ? 10 : 14;
     const labelFontSize = width < 400 ? '9px' : '11px';
-    const displayName = lp.name.length > maxChars ? lp.name.substring(0, maxChars - 1) + '…' : lp.name;
     g.append('text')
       .attr('class', `country-label label-${lp.code}`)
       .attr('x', xLabel)
@@ -449,7 +452,7 @@ function renderChart() {
       .attr('fill', lp.color)
       .attr('font-size', labelFontSize)
       .attr('font-weight', '500')
-      .text(displayName)
+      .text(lp.name)
       .style('cursor', 'pointer')
       .on('mouseenter', () => setHoveredCountry(lp.code))
       .on('mouseleave', () => setHoveredCountry(null));
@@ -514,14 +517,14 @@ function renderChart() {
 
   document.getElementById('chart-legend').innerHTML = `
     <div class="legend-item"><span class="legend-color"></span>Historical</div>
-    <div class="legend-item"><span class="legend-color dashed"></span>IMF Projection</div>
+    <div class="legend-item"><span class="legend-color dotted"></span>IMF Projection</div>
   `;
 }
 
 function downloadPNG() {
-  // Create a temporary larger chart for export
-  const exportWidth = 1100;
-  const exportHeight = 700;
+  // Create a temporary chart for export
+  const exportWidth = 600;
+  const exportHeight = 340;
 
   // Create temporary SVG for export
   const tempContainer = document.createElement('div');
@@ -534,7 +537,7 @@ function downloadPNG() {
   const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   tempSvg.setAttribute('width', exportWidth);
   tempSvg.setAttribute('height', exportHeight);
-  tempSvg.style.background = '#f8faf9';
+  tempSvg.style.background = '#ffffff';
   tempContainer.appendChild(tempSvg);
 
   // Render chart to temp SVG
@@ -542,8 +545,8 @@ function downloadPNG() {
 
   // Convert to canvas
   const scale = 2;
-  const canvasWidth = exportWidth + 48;
-  const canvasHeight = exportHeight + 160;
+  const canvasWidth = exportWidth + 40;
+  const canvasHeight = exportHeight + 120;
 
   const canvas = document.createElement('canvas');
   canvas.width = canvasWidth * scale;
@@ -555,54 +558,55 @@ function downloadPNG() {
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  const padding = 24;
+  const padding = 20;
 
-  // Header - just title, no icon
+  // Header - title
   ctx.fillStyle = '#1a1a1a';
-  ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.font = 'bold 18px -apple-system, BlinkMacSystemFont, sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('GDP per capita (nominal)', padding, 38);
+  const titleY = 22;
+  ctx.fillText('GDP per capita (nominal)', padding, titleY);
 
-  // Subtitle
+  // Subtitle - 11px like axis labels
   ctx.fillStyle = '#666666';
-  ctx.font = '17px -apple-system, BlinkMacSystemFont, sans-serif';
-  const subtitle1 = 'Average economic output per person in a country per year, in current US dollars. ';
-  const subtitle2 = 'Not';
-  const subtitle3 = ' adjusted for purchasing power or local prices.';
+  ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+  const subtitleY = titleY + 20;
+  const line1 = 'Average economic output per person in a country per year, in current US dollars.';
+  ctx.fillText(line1, padding, subtitleY);
 
-  const subtitleY = 68;
-  ctx.fillText(subtitle1, padding, subtitleY);
-  const w1 = ctx.measureText(subtitle1).width;
-
-  ctx.fillText(subtitle2, padding + w1, subtitleY);
-  const w2 = ctx.measureText(subtitle2).width;
+  const line2Y = subtitleY + 14;
+  const line2part1 = 'Not';
+  const line2part2 = ' adjusted for purchasing power or local prices.';
+  ctx.fillText(line2part1, padding, line2Y);
+  const w1 = ctx.measureText(line2part1).width;
   ctx.beginPath();
-  ctx.moveTo(padding + w1, subtitleY + 2);
-  ctx.lineTo(padding + w1 + w2, subtitleY + 2);
+  ctx.moveTo(padding, line2Y + 2);
+  ctx.lineTo(padding + w1, line2Y + 2);
   ctx.strokeStyle = '#666666';
   ctx.lineWidth = 1;
   ctx.stroke();
+  ctx.fillText(line2part2, padding + w1, line2Y);
 
-  ctx.fillText(subtitle3, padding + w1 + w2, subtitleY);
+  // Chart
+  const chartY = line2Y + 14;
 
   // Draw chart from temp SVG
   const svgData = new XMLSerializer().serializeToString(tempSvg);
   const img = new Image();
 
   img.onload = function() {
-    // Chart takes most of the space
-    ctx.drawImage(img, padding, 90, exportWidth, exportHeight);
+    ctx.drawImage(img, padding, chartY, exportWidth, exportHeight);
 
-    // Footer - minimal
-    const footerY = canvasHeight - 22;
+    // Footer
+    const footerY = chartY + exportHeight + 24;
 
     ctx.fillStyle = '#666666';
-    ctx.font = '16px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`Data source: IMF World Economic Outlook (2026) · Years after ${currentYear} are projections`, padding, footerY);
+    ctx.fillText(`Data: IMF World Economic Outlook (2026) · Years after ${currentYear} are projections`, padding, footerY);
 
     ctx.fillStyle = '#10B981';
-    ctx.font = 'bold 17px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.textAlign = 'right';
     ctx.fillText('gdppercapita.fyi', canvasWidth - padding, footerY);
 
@@ -626,8 +630,14 @@ function renderChartToSvg(svg, width, height) {
 
   if (selectedCountries.length === 0) return;
 
-  const labelWidth = 120;
-  const margin = { top: 20, right: labelWidth + 20, bottom: 50, left: 70 };
+  // Calculate labelWidth based on longest selected country name
+  const longestName = selectedCountries.reduce((max, code) => {
+    const country = data.countries.find(c => c.code === code);
+    return country && country.name.length > max ? country.name.length : max;
+  }, 0);
+  const labelWidth = Math.max(60, longestName * 6 + 10);
+
+  const margin = { top: 15, right: labelWidth + 15, bottom: 35, left: 55 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -654,15 +664,15 @@ function renderChartToSvg(svg, width, height) {
   // Axes
   g.append('g')
     .attr('transform', `translate(0, ${innerHeight})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(12))
-    .selectAll('text').style('font-size', '13px').style('fill', '#666');
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(6))
+    .selectAll('text').style('font-size', '11px').style('fill', '#666');
 
   g.append('g')
-    .call(d3.axisLeft(y).tickFormat(d => '$' + d3.format(',.0f')(d)).ticks(8))
-    .selectAll('text').style('font-size', '13px').style('fill', '#666');
+    .call(d3.axisLeft(y).tickFormat(d => '$' + d3.format(',.0f')(d)).ticks(6))
+    .selectAll('text').style('font-size', '11px').style('fill', '#666');
 
   // Grid
-  g.append('g').selectAll('line').data(y.ticks(8)).join('line')
+  g.append('g').selectAll('line').data(y.ticks(6)).join('line')
     .attr('x1', 0).attr('x2', innerWidth)
     .attr('y1', d => y(d)).attr('y2', d => y(d))
     .attr('stroke', '#e0e0e0').attr('stroke-dasharray', '3,3');
@@ -675,10 +685,21 @@ function renderChartToSvg(svg, width, height) {
     return { code: s.code, name: s.name, color: s.color, y: lastValue ? y(lastValue.value) : 0, originalY: lastValue ? y(lastValue.value) : 0 };
   }).sort((a, b) => a.y - b.y);
 
-  const minGap = 18;
+  const minGap = 14;
+  const maxY = innerHeight - 15;
+  // First pass: push labels down
   for (let i = 1; i < labelPositions.length; i++) {
     if (labelPositions[i].y - labelPositions[i - 1].y < minGap) {
       labelPositions[i].y = labelPositions[i - 1].y + minGap;
+    }
+  }
+  // Second pass: if labels exceed maxY, push them up
+  for (let i = labelPositions.length - 1; i >= 0; i--) {
+    if (labelPositions[i].y > maxY) {
+      labelPositions[i].y = maxY;
+    }
+    if (i > 0 && labelPositions[i].y - labelPositions[i - 1].y < minGap) {
+      labelPositions[i - 1].y = labelPositions[i].y - minGap;
     }
   }
 
@@ -687,21 +708,16 @@ function renderChartToSvg(svg, width, height) {
     const historical = s.values.filter(d => !d.isProjection);
     if (historical.length > 0) {
       g.append('path').datum(historical)
-        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2.5).attr('d', line);
+        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2).attr('d', line);
     }
 
     const projection = s.values.filter(d => d.isProjection);
     const lastHistorical = historical[historical.length - 1];
     if (projection.length > 0 && lastHistorical) {
       g.append('path').datum([lastHistorical, ...projection])
-        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2.5)
-        .attr('stroke-dasharray', '6,6').attr('d', line);
+        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2)
+        .attr('stroke-dasharray', '1,3').attr('stroke-linecap', 'round').attr('d', line);
     }
-
-    // Points
-    g.selectAll(`.point-export-${s.code}`).data(s.values).join('circle')
-      .attr('cx', d => x(d.year)).attr('cy', d => y(d.value))
-      .attr('r', 3).attr('fill', s.color);
   });
 
   // Labels
@@ -717,9 +733,9 @@ function renderChartToSvg(svg, width, height) {
 
     g.append('text')
       .attr('x', xLabel).attr('y', lp.y).attr('dy', '0.35em')
-      .attr('fill', lp.color).attr('font-size', '13px').attr('font-weight', '500')
+      .attr('fill', lp.color).attr('font-size', '11px').attr('font-weight', '500')
       .attr('font-family', '-apple-system, BlinkMacSystemFont, sans-serif')
-      .text(lp.name.length > 16 ? lp.name.substring(0, 15) + '…' : lp.name);
+      .text(lp.name);
   });
 }
 

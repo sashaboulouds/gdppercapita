@@ -58,7 +58,7 @@
   "countries": [
     {
       "code": "AFG",
-      "name": "Afghanistan",
+      "name": "Afghanistan, Islamic Republic of",
       "data": {
         "2002": 207.95,
         "2003": 201.05,
@@ -201,7 +201,7 @@
     },
     {
       "code": "AND",
-      "name": "Andorra",
+      "name": "Andorra, Principality of",
       "data": {
         "2010": 49030.23,
         "2011": 51957.31,
@@ -399,7 +399,7 @@
     },
     {
       "code": "ARM",
-      "name": "Armenia",
+      "name": "Armenia, Republic of",
       "data": {
         "1992": 31.32,
         "1993": 247.88,
@@ -444,7 +444,7 @@
     },
     {
       "code": "ABW",
-      "name": "Aruba",
+      "name": "Aruba, Kingdom of the Netherlands",
       "data": {
         "1995": 13707.69,
         "1996": 13947.14,
@@ -600,7 +600,7 @@
     },
     {
       "code": "AZE",
-      "name": "Azerbaijan",
+      "name": "Azerbaijan, Republic of",
       "data": {
         "1992": 159.97,
         "1993": 174.88,
@@ -645,7 +645,7 @@
     },
     {
       "code": "BHS",
-      "name": "Bahamas",
+      "name": "Bahamas, The",
       "data": {
         "1980": 12291.74,
         "1981": 12496.22,
@@ -702,7 +702,7 @@
     },
     {
       "code": "BHR",
-      "name": "Bahrain",
+      "name": "Bahrain, Kingdom of",
       "data": {
         "1980": 10622.62,
         "1981": 11531.45,
@@ -873,7 +873,7 @@
     },
     {
       "code": "BLR",
-      "name": "Belarus",
+      "name": "Belarus, Republic of",
       "data": {
         "1992": 1252.79,
         "1993": 1114.1,
@@ -1353,7 +1353,7 @@
     },
     {
       "code": "BRN",
-      "name": "Brunei",
+      "name": "Brunei Darussalam",
       "data": {
         "1985": 21770.73,
         "1986": 14544.37,
@@ -1969,7 +1969,7 @@
     },
     {
       "code": "CHN",
-      "name": "China",
+      "name": "China, People's Republic of",
       "data": {
         "1980": 307.53,
         "1981": 289.01,
@@ -2083,7 +2083,7 @@
     },
     {
       "code": "COM",
-      "name": "Comoros",
+      "name": "Comoros, Union of the",
       "data": {
         "1980": 722.29,
         "1981": 616.73,
@@ -2140,7 +2140,7 @@
     },
     {
       "code": "COD",
-      "name": "Democratic Republic of Congo",
+      "name": "Congo, Democratic Republic of the",
       "data": {
         "1980": 2730.69,
         "1981": 2301.28,
@@ -2197,7 +2197,7 @@
     },
     {
       "code": "COG",
-      "name": "Congo-Brazzaville",
+      "name": "Congo, Republic of",
       "data": {
         "1980": 1268.33,
         "1981": 1008.64,
@@ -2311,7 +2311,7 @@
     },
     {
       "code": "HRV",
-      "name": "Croatia",
+      "name": "Croatia, Republic of",
       "data": {
         "1992": 120.04,
         "1993": 1591.12,
@@ -2413,7 +2413,7 @@
     },
     {
       "code": "CZE",
-      "name": "Czechia",
+      "name": "Czech Republic",
       "data": {
         "1995": 5861.19,
         "1996": 6569.38,
@@ -2455,7 +2455,7 @@
     },
     {
       "code": "CIV",
-      "name": "Cote d'Ivoire",
+      "name": "Côte d'Ivoire",
       "data": {
         "1980": 1764.74,
         "1981": 1429.98,
@@ -2786,7 +2786,7 @@
     },
     {
       "code": "EGY",
-      "name": "Egypt",
+      "name": "Egypt, Arab Republic of",
       "data": {
         "1980": 580.04,
         "1981": 617.66,
@@ -2900,7 +2900,7 @@
     },
     {
       "code": "GNQ",
-      "name": "Equatorial Guinea",
+      "name": "Equatorial Guinea, Republic of",
       "data": {
         "1980": 123.4,
         "1981": 109.81,
@@ -2957,7 +2957,7 @@
     },
     {
       "code": "ERI",
-      "name": "Eritrea",
+      "name": "Eritrea, The State of",
       "data": {
         "1992": 268.19,
         "1993": 167.08,
@@ -2991,7 +2991,7 @@
     },
     {
       "code": "EST",
-      "name": "Estonia",
+      "name": "Estonia, Republic of",
       "data": {
         "1993": 1194.18,
         "1994": 1711.27,
@@ -3035,7 +3035,7 @@
     },
     {
       "code": "SWZ",
-      "name": "Eswatini",
+      "name": "Eswatini, Kingdom of",
       "data": {
         "1980": 1291.37,
         "1981": 1319.92,
@@ -3092,7 +3092,7 @@
     },
     {
       "code": "ETH",
-      "name": "Ethiopia",
+      "name": "Ethiopia, The Federal Democratic Republic of",
       "data": {
         "1980": 227.62,
         "1981": 228.06,
@@ -3149,7 +3149,7 @@
     },
     {
       "code": "FJI",
-      "name": "Fiji",
+      "name": "Fiji, Republic of",
       "data": {
         "1980": 2056.07,
         "1981": 2062.16,
@@ -3377,7 +3377,7 @@
     },
     {
       "code": "GMB",
-      "name": "Gambia",
+      "name": "Gambia, The",
       "data": {
         "1980": 1007.79,
         "1981": 908.69,
@@ -4037,7 +4037,7 @@
     },
     {
       "code": "HKG",
-      "name": "Hong Kong",
+      "name": "Hong Kong Special Administrative Region, People's Republic of China",
       "data": {
         "1980": 5703.96,
         "1981": 5995.18,
@@ -4322,7 +4322,7 @@
     },
     {
       "code": "IRN",
-      "name": "Iran",
+      "name": "Iran, Islamic Republic of",
       "data": {
         "1980": 2977.17,
         "1981": 3033.66,
@@ -4755,7 +4755,7 @@
     },
     {
       "code": "KAZ",
-      "name": "Kazakhstan",
+      "name": "Kazakhstan, Republic of",
       "data": {
         "1992": 168.65,
         "1993": 304.85,
@@ -4914,7 +4914,7 @@
     },
     {
       "code": "KOR",
-      "name": "South Korea",
+      "name": "Korea, Republic of",
       "data": {
         "1980": 1744.76,
         "1981": 1918.42,
@@ -4971,7 +4971,7 @@
     },
     {
       "code": "KOS",
-      "name": "Kosovo",
+      "name": "Kosovo, Republic of",
       "data": {
         "2000": 1506.09,
         "2001": 1704.29,
@@ -5052,7 +5052,7 @@
     },
     {
       "code": "KGZ",
-      "name": "Kyrgyzstan",
+      "name": "Kyrgyz Republic",
       "data": {
         "1992": 207.98,
         "1993": 148.16,
@@ -5097,7 +5097,7 @@
     },
     {
       "code": "LAO",
-      "name": "Laos",
+      "name": "Lao P.D.R.",
       "data": {
         "1980": 584.59,
         "1981": 335.22,
@@ -5154,7 +5154,7 @@
     },
     {
       "code": "LVA",
-      "name": "Latvia",
+      "name": "Latvia, Republic of",
       "data": {
         "1992": 613.21,
         "1993": 990.42,
@@ -5250,7 +5250,7 @@
     },
     {
       "code": "LSO",
-      "name": "Lesotho",
+      "name": "Lesotho, Kingdom of",
       "data": {
         "1980": 303.05,
         "1981": 299.77,
@@ -5401,7 +5401,7 @@
     },
     {
       "code": "LIE",
-      "name": "Liechtenstein",
+      "name": "Liechtenstein, Principality of",
       "data": {
         "2000": 82188.31,
         "2001": 80762.07,
@@ -5438,7 +5438,7 @@
     },
     {
       "code": "LTU",
-      "name": "Lithuania",
+      "name": "Lithuania, Republic of",
       "data": {
         "1995": 1857.7,
         "1996": 2343.38,
@@ -5537,7 +5537,7 @@
     },
     {
       "code": "MAC",
-      "name": "Macao",
+      "name": "Macao Special Administrative Region, People's Republic of China",
       "data": {
         "2001": 15723.75,
         "2002": 16733.98,
@@ -5573,7 +5573,7 @@
     },
     {
       "code": "MDG",
-      "name": "Madagascar",
+      "name": "Madagascar, Republic of",
       "data": {
         "1980": 599.37,
         "1981": 534.07,
@@ -5900,7 +5900,7 @@
     },
     {
       "code": "MHL",
-      "name": "Marshall Islands",
+      "name": "Marshall Islands, Republic of the",
       "data": {
         "1997": 2229.86,
         "1998": 2241.09,
@@ -5940,7 +5940,7 @@
     },
     {
       "code": "MRT",
-      "name": "Mauritania",
+      "name": "Mauritania, Islamic Republic of",
       "data": {
         "1990": 898.74,
         "1991": 1002.02,
@@ -6101,7 +6101,7 @@
     },
     {
       "code": "FSM",
-      "name": "Micronesia",
+      "name": "Micronesia, Federated States of",
       "data": {
         "1995": 2097.49,
         "1996": 2082.72,
@@ -6143,7 +6143,7 @@
     },
     {
       "code": "MDA",
-      "name": "Moldova",
+      "name": "Moldova, Republic of",
       "data": {
         "1992": 290.06,
         "1993": 373.93,
@@ -6329,7 +6329,7 @@
     },
     {
       "code": "MOZ",
-      "name": "Mozambique",
+      "name": "Mozambique, Republic of",
       "data": {
         "1980": 396.82,
         "1981": 300.91,
@@ -6473,7 +6473,7 @@
     },
     {
       "code": "NRU",
-      "name": "Nauru",
+      "name": "Nauru, Republic of",
       "data": {
         "2004": 3165.02,
         "2005": 3065.63,
@@ -6563,7 +6563,7 @@
     },
     {
       "code": "NLD",
-      "name": "Netherlands",
+      "name": "Netherlands, The",
       "data": {
         "1980": 13769.87,
         "1981": 11445.84,
@@ -6824,7 +6824,7 @@
     },
     {
       "code": "MKD",
-      "name": "North Macedonia",
+      "name": "North Macedonia, Republic of",
       "data": {
         "1992": 1263.86,
         "1993": 1383.54,
@@ -7035,7 +7035,7 @@
     },
     {
       "code": "PLW",
-      "name": "Palau",
+      "name": "Palau, Republic of",
       "data": {
         "2000": 7818.08,
         "2001": 8269.12,
@@ -7357,7 +7357,7 @@
     },
     {
       "code": "POL",
-      "name": "Poland",
+      "name": "Poland, Republic of",
       "data": {
         "1980": 1600.05,
         "1981": 1502.54,
@@ -7642,7 +7642,7 @@
     },
     {
       "code": "RUS",
-      "name": "Russia",
+      "name": "Russian Federation",
       "data": {
         "1992": 482.05,
         "1993": 1321.76,
@@ -7783,7 +7783,7 @@
     },
     {
       "code": "SMR",
-      "name": "San Marino",
+      "name": "San Marino, Republic of",
       "data": {
         "2004": 59313.4,
         "2005": 61150.61,
@@ -7930,7 +7930,7 @@
     },
     {
       "code": "SRB",
-      "name": "Serbia",
+      "name": "Serbia, Republic of",
       "data": {
         "1999": 1709.91,
         "2000": 1387.8,
@@ -8139,7 +8139,7 @@
     },
     {
       "code": "SVK",
-      "name": "Slovakia",
+      "name": "Slovak Republic",
       "data": {
         "1993": 2605.68,
         "1994": 2989.68,
@@ -8183,7 +8183,7 @@
     },
     {
       "code": "SVN",
-      "name": "Slovenia",
+      "name": "Slovenia, Republic of",
       "data": {
         "1992": 9646.11,
         "1993": 8363.79,
@@ -8367,7 +8367,7 @@
     },
     {
       "code": "SSD",
-      "name": "South Sudan",
+      "name": "South Sudan, Republic of",
       "data": {
         "2011": 1659.55,
         "2012": 1041.46,
@@ -8501,7 +8501,7 @@
     },
     {
       "code": "KNA",
-      "name": "Saint Kitts and Nevis",
+      "name": "St. Kitts and Nevis",
       "data": {
         "1980": 1333.38,
         "1981": 1617.4,
@@ -8558,7 +8558,7 @@
     },
     {
       "code": "LCA",
-      "name": "Saint Lucia",
+      "name": "St. Lucia",
       "data": {
         "1980": 1411.27,
         "1981": 1589.06,
@@ -8615,7 +8615,7 @@
     },
     {
       "code": "VCT",
-      "name": "Saint Vincent and the Grenadines",
+      "name": "St. Vincent and the Grenadines",
       "data": {
         "1980": 902.29,
         "1981": 1109.0,
@@ -8890,7 +8890,7 @@
     },
     {
       "code": "SYR",
-      "name": "Syria",
+      "name": "Syrian Arab Republic",
       "data": {
         "1980": 1421.84,
         "1981": 1763.34,
@@ -8927,7 +8927,7 @@
     },
     {
       "code": "STP",
-      "name": "Sao Tome and Principe",
+      "name": "São Tomé and Príncipe, Democratic Republic of",
       "data": {
         "1980": 750.98,
         "1981": 901.34,
@@ -8984,7 +8984,7 @@
     },
     {
       "code": "TWN",
-      "name": "Taiwan",
+      "name": "Taiwan Province of China",
       "data": {
         "1980": 2366.8,
         "1981": 2691.49,
@@ -9041,7 +9041,7 @@
     },
     {
       "code": "TJK",
-      "name": "Tajikistan",
+      "name": "Tajikistan, Republic of",
       "data": {
         "1992": 52.62,
         "1993": 121.64,
@@ -9086,7 +9086,7 @@
     },
     {
       "code": "TZA",
-      "name": "Tanzania",
+      "name": "Tanzania, United Republic of",
       "data": {
         "1980": 602.92,
         "1981": 699.18,
@@ -9200,7 +9200,7 @@
     },
     {
       "code": "TLS",
-      "name": "Timor-Leste",
+      "name": "Timor-Leste, Democratic Republic of",
       "data": {
         "2000": 513.92,
         "2001": 615.25,
@@ -9545,7 +9545,7 @@
     },
     {
       "code": "TUR",
-      "name": "Turkey",
+      "name": "Türkiye, Republic of",
       "data": {
         "1980": 2149.7,
         "1981": 2128.93,
@@ -9932,7 +9932,7 @@
     },
     {
       "code": "UZB",
-      "name": "Uzbekistan",
+      "name": "Uzbekistan, Republic of",
       "data": {
         "1992": 209.57,
         "1993": 315.61,
@@ -10034,7 +10034,7 @@
     },
     {
       "code": "VEN",
-      "name": "Venezuela",
+      "name": "Venezuela, República Bolivariana de",
       "data": {
         "1980": 4671.08,
         "1981": 5085.58,
@@ -10181,7 +10181,7 @@
     },
     {
       "code": "YEM",
-      "name": "Yemen",
+      "name": "Yemen, Republic of",
       "data": {
         "1990": 910.42,
         "1991": 1016.3,

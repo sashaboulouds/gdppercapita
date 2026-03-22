@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country name standardization - GDP per capita</title>
+  <meta name="description" content="How we standardize country names from IMF data for better readability.">
+  <meta property="og:title" content="Country name standardization">
+  <meta property="og:description" content="How we standardize country names from IMF data for better readability.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gdppercapita.fyi/articles/country-names.html">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/articles/country-names.html">
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Country name standardization",
+    "description": "How we standardize country names from IMF data for better readability.",
+    "datePublished": "2026-03-22",
+    "author": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi",
+      "url": "https://gdppercapita.fyi"
+    },
+    "mainEntityOfPage": "https://gdppercapita.fyi/articles/country-names.html"
+  }
+  </script>
+  <style>
+    .name-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1.5rem 0;
+    }
+    .name-table th,
+    .name-table td {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .name-table th {
+      background: #f8f8f8;
+      font-weight: 600;
+    }
+    .name-table tr:hover {
+      background: #fafafa;
+    }
+    .original-name {
+      color: #666;
+    }
+    .arrow {
+      color: #10B981;
+      font-weight: 500;
+    }
+    .deviation-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1.5rem 0;
+    }
+    .deviation-table th,
+    .deviation-table td {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .deviation-table th {
+      background: #f8f8f8;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="article-page">
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="article-nav" id="article-nav">
+    <div class="article-nav-content">
+      <span class="article-nav-title">Country name standardization</span>
+      <a href="/" class="article-nav-cta">
+        Start exploring
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="page-content article-content">
+    <article>
+      <header class="article-header">
+        <p class="article-date">March 22, 2026</p>
+        <h1>Country name standardization</h1>
+        <p class="article-subtitle">We simplify official IMF country names to reduce visual noise and improve readability.</p>
+      </header>
+
+      <div class="article-layout">
+        <nav class="toc">
+          <span class="toc-title">Contents</span>
+          <ul class="toc-list">
+            <li><a href="#why">Why simplify?</a></li>
+            <li><a href="#rules">Standardization rules</a></li>
+            <li><a href="#deviations">Deviations from ISO 3166-1</a></li>
+            <li><a href="#changes">Complete list of changes</a></li>
+            <li><a href="#integrity">Data integrity</a></li>
+          </ul>
+        </nav>
+        <section class="article-body">
+
+        <h2 id="why">Why simplify country names?</h2>
+        <p>The IMF World Economic Outlook uses formal country names like "Andorra, Principality of" or "Congo, Democratic Republic of the". While precise, these names add visual clutter that makes charts harder to read.</p>
+
+        <p>We use short, commonly recognized names to improve readability. This generally aligns with <a href="https://www.iso.org/iso-3166-country-codes.html" target="_blank" rel="noopener">ISO 3166-1</a> short name conventions, with a few documented exceptions.</p>
+
+        <h2 id="rules">Standardization rules</h2>
+        <ul>
+          <li><strong>Remove suffixes</strong>: "Republic of", "Kingdom of", "Islamic Republic of", etc.</li>
+          <li><strong>Remove prefixes</strong>: "The" when placed after the name</li>
+          <li><strong>Use common names</strong>: "South Korea" instead of "Korea, Republic of"</li>
+          <li><strong>Simplify special regions</strong>: "Hong Kong" instead of full administrative designation</li>
+          <li><strong>Normalize characters</strong>: Remove diacritics for consistency</li>
+        </ul>
+
+        <h2 id="deviations">Deviations from ISO 3166-1</h2>
+        <p>In a few cases, we deviate from ISO 3166-1 short names for clarity or common usage:</p>
+
+        <table class="deviation-table">
+          <thead>
+            <tr>
+              <th>Our name</th>
+              <th>ISO 3166-1</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>South Korea</td>
+              <td>Korea (the Republic of)</td>
+              <td>More commonly used in English</td>
+            </tr>
+            <tr>
+              <td>Taiwan</td>
+              <td>Taiwan (Province of China)</td>
+              <td>Simplified, neutral designation</td>
+            </tr>
+            <tr>
+              <td>Cote d'Ivoire</td>
+              <td>Côte d'Ivoire</td>
+              <td>ASCII compatibility (no diacritics)</td>
+            </tr>
+            <tr>
+              <td>Congo-Brazzaville</td>
+              <td>Congo (the)</td>
+              <td>Distinguishes from the other Congo</td>
+            </tr>
+            <tr>
+              <td>Democratic Republic of Congo</td>
+              <td>Congo (the Democratic Republic of the)</td>
+              <td>Simplified, commonly used</td>
+            </tr>
+            <tr>
+              <td>Turkey</td>
+              <td>Türkiye</td>
+              <td>ASCII compatibility, historical usage</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="changes">Complete list of changes</h2>
+        <p>66 country names were modified from the original IMF data:</p>
+
+        <table class="name-table">
+          <thead>
+            <tr>
+              <th>Original (IMF)</th>
+              <th></th>
+              <th>Simplified</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="original-name">Afghanistan, Islamic Republic of</td><td class="arrow">→</td><td>Afghanistan</td></tr>
+            <tr><td class="original-name">Andorra, Principality of</td><td class="arrow">→</td><td>Andorra</td></tr>
+            <tr><td class="original-name">Armenia, Republic of</td><td class="arrow">→</td><td>Armenia</td></tr>
+            <tr><td class="original-name">Aruba, Kingdom of the Netherlands</td><td class="arrow">→</td><td>Aruba</td></tr>
+            <tr><td class="original-name">Azerbaijan, Republic of</td><td class="arrow">→</td><td>Azerbaijan</td></tr>
+            <tr><td class="original-name">Bahamas, The</td><td class="arrow">→</td><td>Bahamas</td></tr>
+            <tr><td class="original-name">Bahrain, Kingdom of</td><td class="arrow">→</td><td>Bahrain</td></tr>
+            <tr><td class="original-name">Belarus, Republic of</td><td class="arrow">→</td><td>Belarus</td></tr>
+            <tr><td class="original-name">Brunei Darussalam</td><td class="arrow">→</td><td>Brunei</td></tr>
+            <tr><td class="original-name">China, People's Republic of</td><td class="arrow">→</td><td>China</td></tr>
+            <tr><td class="original-name">Comoros, Union of the</td><td class="arrow">→</td><td>Comoros</td></tr>
+            <tr><td class="original-name">Congo, Democratic Republic of the</td><td class="arrow">→</td><td>Democratic Republic of Congo</td></tr>
+            <tr><td class="original-name">Congo, Republic of</td><td class="arrow">→</td><td>Congo-Brazzaville</td></tr>
+            <tr><td class="original-name">Côte d'Ivoire</td><td class="arrow">→</td><td>Cote d'Ivoire</td></tr>
+            <tr><td class="original-name">Croatia, Republic of</td><td class="arrow">→</td><td>Croatia</td></tr>
+            <tr><td class="original-name">Czech Republic</td><td class="arrow">→</td><td>Czechia</td></tr>
+            <tr><td class="original-name">Egypt, Arab Republic of</td><td class="arrow">→</td><td>Egypt</td></tr>
+            <tr><td class="original-name">Equatorial Guinea, Republic of</td><td class="arrow">→</td><td>Equatorial Guinea</td></tr>
+            <tr><td class="original-name">Eritrea, The State of</td><td class="arrow">→</td><td>Eritrea</td></tr>
+            <tr><td class="original-name">Estonia, Republic of</td><td class="arrow">→</td><td>Estonia</td></tr>
+            <tr><td class="original-name">Eswatini, Kingdom of</td><td class="arrow">→</td><td>Eswatini</td></tr>
+            <tr><td class="original-name">Ethiopia, The Federal Democratic Republic of</td><td class="arrow">→</td><td>Ethiopia</td></tr>
+            <tr><td class="original-name">Fiji, Republic of</td><td class="arrow">→</td><td>Fiji</td></tr>
+            <tr><td class="original-name">Gambia, The</td><td class="arrow">→</td><td>Gambia</td></tr>
+            <tr><td class="original-name">Hong Kong SAR, People's Republic of China</td><td class="arrow">→</td><td>Hong Kong</td></tr>
+            <tr><td class="original-name">Iran, Islamic Republic of</td><td class="arrow">→</td><td>Iran</td></tr>
+            <tr><td class="original-name">Kazakhstan, Republic of</td><td class="arrow">→</td><td>Kazakhstan</td></tr>
+            <tr><td class="original-name">Korea, Republic of</td><td class="arrow">→</td><td>South Korea</td></tr>
+            <tr><td class="original-name">Kosovo, Republic of</td><td class="arrow">→</td><td>Kosovo</td></tr>
+            <tr><td class="original-name">Kyrgyz Republic</td><td class="arrow">→</td><td>Kyrgyzstan</td></tr>
+            <tr><td class="original-name">Lao P.D.R.</td><td class="arrow">→</td><td>Laos</td></tr>
+            <tr><td class="original-name">Latvia, Republic of</td><td class="arrow">→</td><td>Latvia</td></tr>
+            <tr><td class="original-name">Lesotho, Kingdom of</td><td class="arrow">→</td><td>Lesotho</td></tr>
+            <tr><td class="original-name">Liechtenstein, Principality of</td><td class="arrow">→</td><td>Liechtenstein</td></tr>
+            <tr><td class="original-name">Lithuania, Republic of</td><td class="arrow">→</td><td>Lithuania</td></tr>
+            <tr><td class="original-name">Macao SAR, People's Republic of China</td><td class="arrow">→</td><td>Macao</td></tr>
+            <tr><td class="original-name">Madagascar, Republic of</td><td class="arrow">→</td><td>Madagascar</td></tr>
+            <tr><td class="original-name">Marshall Islands, Republic of the</td><td class="arrow">→</td><td>Marshall Islands</td></tr>
+            <tr><td class="original-name">Mauritania, Islamic Republic of</td><td class="arrow">→</td><td>Mauritania</td></tr>
+            <tr><td class="original-name">Micronesia, Federated States of</td><td class="arrow">→</td><td>Micronesia</td></tr>
+            <tr><td class="original-name">Moldova, Republic of</td><td class="arrow">→</td><td>Moldova</td></tr>
+            <tr><td class="original-name">Mozambique, Republic of</td><td class="arrow">→</td><td>Mozambique</td></tr>
+            <tr><td class="original-name">Nauru, Republic of</td><td class="arrow">→</td><td>Nauru</td></tr>
+            <tr><td class="original-name">Netherlands, The</td><td class="arrow">→</td><td>Netherlands</td></tr>
+            <tr><td class="original-name">North Macedonia, Republic of</td><td class="arrow">→</td><td>North Macedonia</td></tr>
+            <tr><td class="original-name">Palau, Republic of</td><td class="arrow">→</td><td>Palau</td></tr>
+            <tr><td class="original-name">Poland, Republic of</td><td class="arrow">→</td><td>Poland</td></tr>
+            <tr><td class="original-name">Russian Federation</td><td class="arrow">→</td><td>Russia</td></tr>
+            <tr><td class="original-name">San Marino, Republic of</td><td class="arrow">→</td><td>San Marino</td></tr>
+            <tr><td class="original-name">São Tomé and Príncipe, Democratic Republic of</td><td class="arrow">→</td><td>Sao Tome and Principe</td></tr>
+            <tr><td class="original-name">Serbia, Republic of</td><td class="arrow">→</td><td>Serbia</td></tr>
+            <tr><td class="original-name">Slovak Republic</td><td class="arrow">→</td><td>Slovakia</td></tr>
+            <tr><td class="original-name">Slovenia, Republic of</td><td class="arrow">→</td><td>Slovenia</td></tr>
+            <tr><td class="original-name">South Sudan, Republic of</td><td class="arrow">→</td><td>South Sudan</td></tr>
+            <tr><td class="original-name">St. Kitts and Nevis</td><td class="arrow">→</td><td>Saint Kitts and Nevis</td></tr>
+            <tr><td class="original-name">St. Lucia</td><td class="arrow">→</td><td>Saint Lucia</td></tr>
+            <tr><td class="original-name">St. Vincent and the Grenadines</td><td class="arrow">→</td><td>Saint Vincent and the Grenadines</td></tr>
+            <tr><td class="original-name">Syrian Arab Republic</td><td class="arrow">→</td><td>Syria</td></tr>
+            <tr><td class="original-name">Taiwan Province of China</td><td class="arrow">→</td><td>Taiwan</td></tr>
+            <tr><td class="original-name">Tajikistan, Republic of</td><td class="arrow">→</td><td>Tajikistan</td></tr>
+            <tr><td class="original-name">Tanzania, United Republic of</td><td class="arrow">→</td><td>Tanzania</td></tr>
+            <tr><td class="original-name">Timor-Leste, Democratic Republic of</td><td class="arrow">→</td><td>Timor-Leste</td></tr>
+            <tr><td class="original-name">Türkiye, Republic of</td><td class="arrow">→</td><td>Turkey</td></tr>
+            <tr><td class="original-name">Uzbekistan, Republic of</td><td class="arrow">→</td><td>Uzbekistan</td></tr>
+            <tr><td class="original-name">Venezuela, República Bolivariana de</td><td class="arrow">→</td><td>Venezuela</td></tr>
+            <tr><td class="original-name">Yemen, Republic of</td><td class="arrow">→</td><td>Yemen</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="integrity">Data integrity</h2>
+        <p>Only country names are changed. The underlying data (GDP values, country codes) remains exactly as provided by the IMF. The JSON export from the <a href="/">main page</a> uses simplified names.</p>
+        <p>For reference, you can find the <a href="https://github.com/sashaboulouds/gdppercapita/blob/main/data/gdp-per-capita-raw.json" target="_blank" rel="noopener">original IMF dataset</a> and the <a href="https://github.com/sashaboulouds/gdppercapita/blob/main/scripts/normalize-country-names.py" target="_blank" rel="noopener">normalization script</a> on GitHub.</p>
+
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this.html">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
+          <a href="/articles/country-names.html">Country names</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/reddit.html">Reddit</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky article nav - appears when h1 scrolls out of view
+    const articleNav = document.getElementById('article-nav');
+    const articleTitle = document.querySelector('.article-header h1');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio < 1) {
+          articleNav.classList.add('visible');
+        } else {
+          articleNav.classList.remove('visible');
+        }
+      });
+    }, { threshold: 1 });
+
+    navObserver.observe(articleTitle);
+
+    // Scrollspy for TOC
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const sections = document.querySelectorAll('.article-body h2[id]');
+
+    const scrollSpy = () => {
+      const scrollPos = window.scrollY + 120;
+
+      sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const nextSection = sections[index + 1];
+        const sectionBottom = nextSection ? nextSection.offsetTop : document.body.scrollHeight;
+
+        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc-list a[href="#${section.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', scrollSpy);
+    scrollSpy();
+  </script>
+</body>
+</html>

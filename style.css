@@ -289,9 +289,8 @@ h1 {
 }
 
 .country-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 .country-bar-container {
@@ -392,13 +391,13 @@ h1 {
   background: var(--text-muted);
 }
 
-.legend-color.dashed {
+.legend-color.dotted {
   background: repeating-linear-gradient(
     90deg,
     var(--text-muted) 0,
-    var(--text-muted) 4px,
-    transparent 4px,
-    transparent 8px
+    var(--text-muted) 2px,
+    transparent 2px,
+    transparent 5px
   );
 }
 
@@ -530,6 +529,15 @@ details p {
   padding-bottom: 1rem;
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+details p a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+details p a:hover {
+  text-decoration: underline;
 }
 
 .reference {
