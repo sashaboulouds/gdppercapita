@@ -18,6 +18,7 @@
 
 html {
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
@@ -280,6 +281,34 @@ h1 {
   font-weight: bold;
 }
 
+.country-item.group-item {
+  border-left: 2px solid var(--border);
+  padding-left: calc(0.6rem - 2px);
+}
+
+.group-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-left: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--text-muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: help;
+  vertical-align: middle;
+}
+
+.group-info:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
 .country-info {
   flex: 1;
   min-width: 0;
@@ -342,15 +371,16 @@ h1 {
 }
 
 .country-label.dimmed {
-  opacity: 0.2;
+  opacity: 0.5;
 }
 
 .chart-line {
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, stroke-width 0.15s;
 }
 
 .chart-line.dimmed {
-  opacity: 0.15;
+  opacity: 0.5;
+  stroke-width: 1 !important;
 }
 
 .chart-point {
@@ -358,7 +388,7 @@ h1 {
 }
 
 .chart-point.dimmed {
-  opacity: 0.15;
+  opacity: 0;
 }
 
 /* Chart Footer */
@@ -810,6 +840,32 @@ footer::before {
   max-width: 680px;
 }
 
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+}
+
+.article-body th,
+.article-body td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-body th {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.article-body tr:hover {
+  background: var(--bg-alt);
+}
+
 /* Article page - non-sticky main header */
 body.article-page > header {
   position: relative;
@@ -956,6 +1012,33 @@ body.article-page > header {
   font-size: 1.15rem;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+.article-body pre {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.article-body details {
+  margin: 1rem 0;
+}
+
+.article-body details summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--accent);
 }
 
 .article-body h2 {
@@ -1184,6 +1267,106 @@ body.article-page > header {
   opacity: 1;
 }
 
+/* Country Pages */
+.country-hero {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.country-hero h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.country-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.stat-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.stat-highlight {
+  color: var(--accent);
+}
+
+.country-intro {
+  max-width: 700px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.country-intro a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.country-intro a:hover {
+  text-decoration: underline;
+}
+
+.compare-section {
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.compare-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.compare-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.compare-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+}
+
+.compare-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.compare-btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.compare-btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: white;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .article-layout {
@@ -1266,6 +1449,24 @@ body.article-page > header {
   .comparison-table th,
   .comparison-table td {
     padding: 0.5rem 0.35rem;
+  }
+
+  /* Country pages mobile */
+  .country-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .country-stats {
+    gap: 1.5rem;
+  }
+
+  .compare-buttons {
+    flex-direction: column;
+  }
+
+  .compare-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 

@@ -1,0 +1,112 @@
+{
+  "groups": {
+    "world": {
+      "name": "World",
+      "description": "All 197 countries",
+      "source": "IMF",
+      "countries": "all"
+    },
+    "g7": {
+      "name": "G7",
+      "description": "Group of Seven major advanced economies",
+      "source": "IMF",
+      "countries": ["USA", "JPN", "DEU", "GBR", "FRA", "ITA", "CAN"]
+    },
+    "g20": {
+      "name": "G20",
+      "description": "Group of Twenty major economies",
+      "source": "IMF",
+      "countries": ["ARG", "AUS", "BRA", "CAN", "CHN", "FRA", "DEU", "IND", "IDN", "ITA", "JPN", "MEX", "RUS", "SAU", "ZAF", "KOR", "TUR", "GBR", "USA"]
+    },
+    "eu27": {
+      "name": "European Union",
+      "description": "27 member states of the European Union",
+      "source": "IMF",
+      "countries": ["AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE"]
+    },
+    "euro": {
+      "name": "Euro Area",
+      "description": "20 countries using the Euro",
+      "source": "IMF",
+      "countries": ["AUT", "BEL", "HRV", "CYP", "EST", "FIN", "FRA", "DEU", "GRC", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "PRT", "SVK", "SVN", "ESP"]
+    },
+    "asean": {
+      "name": "ASEAN-5",
+      "description": "Five major Southeast Asian economies",
+      "source": "IMF",
+      "countries": ["IDN", "MYS", "PHL", "SGP", "THA"]
+    },
+    "brics": {
+      "name": "BRICS",
+      "description": "Brazil, Russia, India, China, South Africa",
+      "source": "Custom",
+      "countries": ["BRA", "RUS", "IND", "CHN", "ZAF"]
+    },
+    "nordic": {
+      "name": "Nordic Countries",
+      "description": "Denmark, Finland, Iceland, Norway, Sweden",
+      "source": "Custom",
+      "countries": ["DNK", "FIN", "ISL", "NOR", "SWE"]
+    },
+    "latam": {
+      "name": "Latin America",
+      "description": "Major Latin American economies",
+      "source": "IMF",
+      "countries": ["ARG", "BOL", "BRA", "CHL", "COL", "CRI", "DOM", "ECU", "SLV", "GTM", "HND", "MEX", "NIC", "PAN", "PRY", "PER", "URY", "VEN"]
+    },
+    "me": {
+      "name": "Middle East",
+      "description": "Major Middle Eastern economies",
+      "source": "IMF",
+      "countries": ["BHR", "EGY", "IRN", "IRQ", "ISR", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "SYR", "ARE", "YEM"]
+    },
+    "ssa": {
+      "name": "Sub-Saharan Africa",
+      "description": "Major Sub-Saharan African economies",
+      "source": "IMF",
+      "countries": ["AGO", "BWA", "CMR", "CIV", "ETH", "GHA", "KEN", "MUS", "NGA", "SEN", "ZAF", "TZA", "UGA", "ZMB", "ZWE"]
+    },
+    "advanced": {
+      "name": "Advanced Economies",
+      "description": "IMF-classified advanced economies",
+      "source": "IMF",
+      "countries": ["AUS", "AUT", "BEL", "CAN", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HKG", "ISL", "IRL", "ISR", "ITA", "JPN", "KOR", "LVA", "LTU", "LUX", "MAC", "MLT", "NLD", "NZL", "NOR", "PRT", "PRI", "SGP", "SVK", "SVN", "ESP", "SWE", "CHE", "TWN", "GBR", "USA"]
+    },
+    "oecd": {
+      "name": "OECD",
+      "description": "Organisation for Economic Co-operation and Development members",
+      "source": "Custom",
+      "countries": ["AUS", "AUT", "BEL", "CAN", "CHL", "COL", "CRI", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "ISL", "IRL", "ISR", "ITA", "JPN", "KOR", "LVA", "LTU", "LUX", "MEX", "NLD", "NZL", "NOR", "POL", "PRT", "SVK", "SVN", "ESP", "SWE", "CHE", "TUR", "GBR", "USA"]
+    },
+    "gcc": {
+      "name": "GCC",
+      "description": "Gulf Cooperation Council",
+      "source": "Custom",
+      "countries": ["BHR", "KWT", "OMN", "QAT", "SAU", "ARE"]
+    },
+    "hic": {
+      "name": "High Income",
+      "description": "GNI per capita $13,935 or more (World Bank FY25)",
+      "source": "World Bank",
+      "countries": ["AND", "ARE", "ATG", "AUS", "AUT", "BEL", "BHR", "BHS", "BMU", "BRB", "BRN", "CAN", "CHE", "CHL", "CYP", "CZE", "DEU", "DNK", "ESP", "EST", "FIN", "FRA", "GBR", "GRC", "GUY", "HKG", "HRV", "HUN", "IRL", "ISL", "ISR", "ITA", "JPN", "KOR", "KWT", "LTU", "LUX", "LVA", "MAC", "MLT", "NLD", "NOR", "NZL", "OMN", "PAN", "POL", "PRT", "PRI", "QAT", "ROU", "SAU", "SGP", "SVK", "SVN", "SWE", "TWN", "URY", "USA"]
+    },
+    "umic": {
+      "name": "Upper Middle Income",
+      "description": "GNI per capita $4,516 - $13,935 (World Bank FY25)",
+      "source": "World Bank",
+      "countries": ["ALB", "ARG", "ARM", "AZE", "BGR", "BIH", "BLR", "BRA", "BWA", "CHN", "COL", "CRI", "DOM", "DZA", "ECU", "FJI", "GAB", "GEO", "GTM", "IDN", "IRN", "IRQ", "JAM", "JOR", "KAZ", "LBN", "LBY", "MEX", "MKD", "MNE", "MUS", "MYS", "NAM", "PER", "RUS", "SRB", "SUR", "THA", "TKM", "TUR", "TUV", "VEN", "ZAF"]
+    },
+    "lmic": {
+      "name": "Lower Middle Income",
+      "description": "GNI per capita $1,146 - $4,515 (World Bank FY25)",
+      "source": "World Bank",
+      "countries": ["AGO", "BEN", "BGD", "BOL", "BTN", "CIV", "CMR", "COG", "COM", "CPV", "DJI", "EGY", "FSM", "GHA", "HND", "HTI", "IND", "KEN", "KGZ", "KHM", "LAO", "LKA", "LSO", "MAR", "MDA", "MNG", "MRT", "NGA", "NIC", "NPL", "PAK", "PHL", "PNG", "PSE", "SEN", "SLB", "SLV", "SWZ", "TJK", "TLS", "TUN", "TZA", "UKR", "UZB", "VNM", "VUT", "WSM", "ZMB", "ZWE"]
+    },
+    "lic": {
+      "name": "Low Income",
+      "description": "GNI per capita $1,145 or less (World Bank FY25)",
+      "source": "World Bank",
+      "countries": ["AFG", "BDI", "BFA", "CAF", "COD", "ERI", "ETH", "GIN", "GMB", "GNB", "LBR", "MDG", "MLI", "MOZ", "MWI", "NER", "PRK", "RWA", "SDN", "SLE", "SOM", "SSD", "SYR", "TCD", "TGO", "UGA", "YEM"]
+    }
+  }
+}

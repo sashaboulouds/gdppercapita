@@ -3,30 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GDP per capita (nominal) - IMF Data</title>
-  <meta name="description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
-  <meta property="og:title" content="GDP per capita (nominal) - IMF Data">
-  <meta property="og:description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <title>France GDP per capita (nominal) - IMF Data</title>
+  <meta name="description" content="France GDP per capita is $51,708 (2026). Track France's economic output per person from 1980 to 2030 with IMF World Economic Outlook data.">
+  <meta property="og:title" content="France GDP per capita (nominal) - IMF Data">
+  <meta property="og:description" content="France GDP per capita is $51,708 (2026). Track economic output per person with IMF data.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gdppercapita.fyi/">
+  <meta property="og:url" content="https://gdppercapita.fyi/france">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="GDP per capita (nominal) - IMF Data">
-  <meta name="twitter:description" content="Compare GDP per capita across countries with IMF data (1980-2030).">
+  <meta name="twitter:title" content="France GDP per capita (nominal) - IMF Data">
+  <meta name="twitter:description" content="France GDP per capita is $51,708 (2026). IMF World Economic Outlook data.">
   <meta property="og:image" content="https://gdppercapita.fyi/og-image.png">
   <meta name="twitter:image" content="https://gdppercapita.fyi/og-image.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="canonical" href="https://gdppercapita.fyi/">
+  <link rel="canonical" href="https://gdppercapita.fyi/france">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "GDP per capita",
-    "url": "https://gdppercapita.fyi",
-    "description": "GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.",
+    "@type": "WebPage",
+    "name": "France GDP per Capita",
+    "url": "https://gdppercapita.fyi/france",
+    "description": "France GDP per capita from 1980 to 2030 with IMF World Economic Outlook data.",
     "publisher": {
       "@type": "Organization",
       "name": "gdppercapita.fyi"
+    },
+    "about": {
+      "@type": "Country",
+      "name": "France"
     }
   }
   </script>
@@ -34,28 +38,26 @@
   {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    "name": "GDP per capita (nominal) by country",
-    "description": "GDP per capita in current US dollars for 197 countries from 1980 to 2030, including IMF projections.",
-    "url": "https://gdppercapita.fyi",
+    "name": "France GDP per capita (nominal)",
+    "description": "GDP per capita in current US dollars for France from 1980 to 2030, including IMF projections.",
+    "url": "https://gdppercapita.fyi/france",
     "license": "https://www.imf.org/external/terms.htm",
     "creator": {
       "@type": "Organization",
       "name": "International Monetary Fund",
       "url": "https://www.imf.org"
     },
-    "distribution": {
-      "@type": "DataDownload",
-      "encodingFormat": "application/json",
-      "contentUrl": "https://gdppercapita.fyi/data/gdp-per-capita.json"
-    },
     "temporalCoverage": "1980/2030",
-    "spatialCoverage": "Global",
+    "spatialCoverage": {
+      "@type": "Country",
+      "name": "France"
+    },
     "variableMeasured": "GDP per capita in current US dollars"
   }
   </script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
-<body>
+<body class="country-page">
   <header>
     <div class="header-bar">
       <a href="/" class="logo">
@@ -79,9 +81,25 @@
   </header>
 
   <main>
-    <section class="intro">
-      <h1>GDP per capita <span class="nominal-tag">(nominal)</span></h1>
-      <p class="description">Average economic output per person in a country per year, in current US dollars. <u>Not</u> adjusted for purchasing power or local prices (see <a href="#faq-ppp">why</a>).</p>
+    <section class="country-hero">
+      <div class="country-hero-content">
+        <h1>France GDP per capita <span class="nominal-tag">(nominal)</span></h1>
+        <div class="country-stats">
+          <div class="stat-item">
+            <span class="stat-number stat-highlight">$51,708</span>
+            <span class="stat-desc">GDP per capita (2026)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">$57,606</span>
+            <span class="stat-desc">Projected 2030</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">+11%</span>
+            <span class="stat-desc">Growth 2026-2030</span>
+          </div>
+        </div>
+        <p class="country-intro">France is the world's 7th largest economy. GDP per capita measures the average economic output per person in current US dollars, based on <a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">IMF World Economic Outlook</a> data.</p>
+      </div>
     </section>
 
     <section class="chart-section">
@@ -123,36 +141,17 @@
       </div>
     </section>
 
-    <section class="faq-section" id="faq">
-      <h2>Frequently Asked Questions</h2>
-
-      <details open>
-        <summary>What is GDP per capita?</summary>
-        <p>GDP per capita is a country's total economic output divided by its population — the average economic production per person, commonly used as an indicator of economic development.</p>
-      </details>
-
-      <details open>
-        <summary>How is it calculated?</summary>
-        <p>GDP per capita = Total GDP ÷ Population. GDP is measured via the expenditure approach (consumption + investment + government spending + net exports).</p>
-      </details>
-
-      <details open>
-        <summary>What does "current prices, US dollars" mean?</summary>
-        <p>GDP measured in nominal terms (not inflation-adjusted) and converted to US dollars at market exchange rates. The dollar serves as the global reference currency for international comparisons.</p>
-      </details>
-
-      <details open id="faq-ppp">
-        <summary>Why nominal GDP instead of PPP-adjusted?</summary>
-        <p>Purchasing Power Parity (PPP) adjusts for domestic price differences but systematically overestimates income in developing countries. The Balassa-Samuelson effect (1964) shows that non-traded goods are cheaper in poorer countries, inflating their PPP-adjusted income. Nominal GDP better reflects international purchasing power and power dynamics — the actual ability to buy imports, invest abroad, or hire foreign workers.</p>
-        <p class="reference">Reference: <a href="https://www.jstor.org/stable/1829464" target="_blank" rel="noopener">Balassa, B. (1964). "The Purchasing-Power Parity Doctrine: A Reappraisal." <em>Journal of Political Economy</em></a></p>
-      </details>
-
-      <details open>
-        <summary>What is the IMF World Economic Outlook?</summary>
-        <p>The <a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">World Economic Outlook (WEO)</a> is a biannual publication by the IMF Research Department, released every April and October. It contains macroeconomic data for 190+ countries from 1980 to present, plus 5-year projections based on IMF staff analysis.</p>
-      </details>
-
-          </section>
+    <section class="compare-section">
+      <h2>Compare France</h2>
+      <div class="compare-buttons">
+        <a href="/?country=FRA~USA" class="compare-btn">vs USA</a>
+        <a href="/?country=FRA~G7" class="compare-btn">vs G7</a>
+        <a href="/?country=FRA~EU27" class="compare-btn">vs EU27</a>
+        <a href="/?country=FRA~POL~CZE~HUN~ROU" class="compare-btn">vs Eastern Europe</a>
+        <a href="/?country=FRA~DEU~GBR~ITA~ESP" class="compare-btn">vs Western Europe</a>
+        <a href="/" class="compare-btn compare-btn-primary">Custom comparison</a>
+      </div>
+    </section>
 
     <section class="source-section">
       <h2>Source</h2>
@@ -167,10 +166,6 @@
             <span class="source-value">March 21, 2026</span>
           </div>
           <div class="source-item">
-            <span class="source-label">Next expected update</span>
-            <span class="source-value">April 2026</span>
-          </div>
-          <div class="source-item">
             <span class="source-label">Date range</span>
             <span class="source-value">1980 – 2030</span>
           </div>
@@ -178,23 +173,7 @@
             <span class="source-label">Unit</span>
             <span class="source-value">Current US dollars per person</span>
           </div>
-          <div class="source-item">
-            <span class="source-label">URL</span>
-            <span class="source-value"><a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">data.imf.org</a></span>
-          </div>
         </div>
-        <p class="source-note">Note: Some countries (Afghanistan, Eritrea, Lebanon, Pakistan, Sri Lanka, Syria, West Bank and Gaza) show latest available data due to missing recent figures. Years after <span id="current-year-note"></span> are IMF projections.</p>
-      </div>
-    </section>
-
-    <section class="reuse-section">
-      <h2>Reuse this work</h2>
-      <p>IMF data is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>. Visualizations and code are <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> — use freely with attribution.</p>
-
-      <h3>How to cite</h3>
-      <div class="citation-box">
-        <code>International Monetary Fund (2026) – World Economic Outlook. Via gdppercapita.fyi</code>
-        <button class="copy-citation" id="btn-copy-citation">Copy</button>
       </div>
     </section>
   </main>
@@ -233,6 +212,10 @@
     </div>
   </footer>
 
+  <script>
+    // Pre-select France when the page loads
+    window.PRESELECTED_COUNTRIES = ['FRA'];
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

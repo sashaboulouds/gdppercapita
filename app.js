@@ -32,7 +32,8 @@ async function init() {
   const maxYear = Math.max(...data.years);
   currentYear = Math.min(new Date().getFullYear(), maxYear);
 
-  document.getElementById('current-year-note').textContent = currentYear;
+  const yearNote = document.getElementById('current-year-note');
+  if (yearNote) yearNote.textContent = currentYear;
 
   // Calculate max GDP using latest available value for each country
   maxGdp = Math.max(...data.countries.map(c => getLatestValue(c)));
@@ -40,14 +41,19 @@ async function init() {
   const urlParams = new URLSearchParams(window.location.search);
   const urlCountries = urlParams.get('country');
 
+  // Helper to check if code exists (country or group)
+  const codeExists = (code) =>
+    data.countries.find(c => c.code === code) ||
+    (data.groups && data.groups.find(g => g.code === code));
+
   if (urlCountries) {
-    selectedCountries = urlCountries.split('~').filter(code =>
-      data.countries.find(c => c.code === code)
-    );
+    // URL params take priority
+    selectedCountries = urlCountries.split('~').filter(codeExists);
+  } else if (window.PRESELECTED_COUNTRIES) {
+    // Country pages pre-select specific countries
+    selectedCountries = window.PRESELECTED_COUNTRIES.filter(codeExists);
   } else {
-    selectedCountries = DEFAULT_COUNTRIES.filter(code =>
-      data.countries.find(c => c.code === code)
-    );
+    selectedCountries = DEFAULT_COUNTRIES.filter(codeExists);
   }
 
   setupCountrySearch();
@@ -118,11 +124,15 @@ function setupCountrySearch() {
 function setupActionButtons() {
   document.getElementById('btn-download-png').addEventListener('click', downloadPNG);
   document.getElementById('btn-download-json').addEventListener('click', downloadJSON);
-  document.getElementById('btn-copy-citation').addEventListener('click', () => {
-    const citation = document.querySelector('.citation-box code').textContent;
-    navigator.clipboard.writeText(citation);
-    showToast('Citation copied to clipboard');
-  });
+
+  const copyBtn = document.getElementById('btn-copy-citation');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const citation = document.querySelector('.citation-box code').textContent;
+      navigator.clipboard.writeText(citation);
+      showToast('Citation copied to clipboard');
+    });
+  }
 
   document.getElementById('btn-share').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href);
@@ -144,26 +154,39 @@ function updateSelectedCount() {
 
 function getCountriesSorted() {
   return data.countries
-    .map(c => ({ ...c, value: getLatestValue(c), latestYear: getLatestYear(c) }))
+    .map(c => ({ ...c, value: getLatestValue(c), latestYear: getLatestYear(c), isGroup: false }))
     .sort((a, b) => b.value - a.value);
+}
+
+function getGroupsSorted() {
+  if (!data.groups) return [];
+  return data.groups
+    .map(g => ({ ...g, value: getLatestValue(g), latestYear: getLatestYear(g), isGroup: true }))
+    .sort((a, b) => b.value - a.value);
+}
+
+function getAllItemsSorted() {
+  const countries = getCountriesSorted();
+  const groups = getGroupsSorted();
+  return [...countries, ...groups].sort((a, b) => b.value - a.value);
 }
 
 function renderCountryList(filter = '') {
   const container = document.getElementById('country-list');
-  let countries = getCountriesSorted();
+  let items = getAllItemsSorted();
 
   if (filter) {
-    countries = countries.filter(c =>
+    items = items.filter(c =>
       c.name.toLowerCase().includes(filter) ||
       c.code.toLowerCase().includes(filter)
     );
   }
 
-  // Keep countries sorted by GDP (no reordering based on selection)
-  // But show selected countries at top as a separate section
+  // Keep items sorted by GDP (no reordering based on selection)
+  // But show selected items at top as a separate section
 
   const selectedList = selectedCountries
-    .map(code => countries.find(c => c.code === code))
+    .map(code => items.find(c => c.code === code))
     .filter(Boolean)
     .sort((a, b) => b.value - a.value);
 
@@ -173,11 +196,11 @@ function renderCountryList(filter = '') {
   if (selectedList.length > 0 && !filter) {
     html += '<div class="country-section-label">Selected</div>';
     html += selectedList.map(c => renderCountryItem(c, true)).join('');
-    html += '<div class="country-section-label">All countries</div>';
+    html += '<div class="country-section-label">All</div>';
   }
 
-  // All countries sorted by GDP
-  html += countries.map(c => renderCountryItem(c, false)).join('');
+  // All items (countries + groups) sorted by GDP
+  html += items.map(c => renderCountryItem(c, false)).join('');
 
   container.innerHTML = html;
 
@@ -196,9 +219,10 @@ function renderCountryItem(c, isInSelectedSection) {
   const barColor = isSelected ? getCountryColor(c.code) : '#d1d5db';
   const barWidth = maxGdp > 0 ? (c.value / maxGdp) * 100 : 0;
   const yearNote = c.latestYear < currentYear ? ` (${c.latestYear})` : '';
+  const itemClass = c.isGroup ? 'country-item group-item' : 'country-item';
 
   return `
-    <div class="country-item ${isSelected ? 'selected' : ''}" data-code="${c.code}">
+    <div class="${itemClass} ${isSelected ? 'selected' : ''}" data-code="${c.code}" data-is-group="${c.isGroup}">
       <div class="country-checkbox"></div>
       <div class="country-info">
         <span class="country-name">${c.name}</span>
@@ -308,14 +332,20 @@ function renderChart() {
       .attr('y', height / 2)
       .attr('text-anchor', 'middle')
       .attr('fill', '#666666')
-      .text('Select countries to compare');
+      .text('Select country or region to compare');
     return;
   }
 
-  // Calculate labelWidth based on longest selected country name
+  // Helper to find item (country or group) by code
+  const findItem = (code) => {
+    return data.countries.find(c => c.code === code) ||
+           (data.groups && data.groups.find(g => g.code === code));
+  };
+
+  // Calculate labelWidth based on longest selected item name
   const longestName = selectedCountries.reduce((max, code) => {
-    const country = data.countries.find(c => c.code === code);
-    return country && country.name.length > max ? country.name.length : max;
+    const item = findItem(code);
+    return item && item.name.length > max ? item.name.length : max;
   }, 0);
   const charWidth = width < 400 ? 5 : 6;
   const labelWidth = Math.max(60, longestName * charWidth + 10);
@@ -328,18 +358,22 @@ function renderChart() {
   const g = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   const series = selectedCountries.map((code) => {
-    const country = data.countries.find(c => c.code === code);
+    const item = findItem(code);
+    if (!item) return null;
+    const isGroup = data.groups && data.groups.some(g => g.code === code);
     return {
       code,
-      name: country.name,
+      name: item.name,
       color: getCountryColor(code),
+      isGroup,
+      description: item.description || null,
       values: data.years.map(year => ({
         year,
-        value: country.data[year] || null,
+        value: item.data[year] || null,
         isProjection: year > currentYear
       })).filter(d => d.value !== null && d.value > 0)
     };
-  });
+  }).filter(Boolean);
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
   const x = d3.scaleLinear().domain(d3.extent(data.years)).range([0, innerWidth]);
@@ -368,7 +402,7 @@ function renderChart() {
 
   const labelPositions = series.map(s => {
     const lastValue = s.values[s.values.length - 1];
-    return { code: s.code, name: s.name, color: s.color, y: lastValue ? y(lastValue.value) : 0, originalY: lastValue ? y(lastValue.value) : 0 };
+    return { code: s.code, name: s.name, color: s.color, isGroup: s.isGroup, description: s.description, y: lastValue ? y(lastValue.value) : 0, originalY: lastValue ? y(lastValue.value) : 0 };
   }).sort((a, b) => a.y - b.y);
 
   const minGap = 14;
@@ -444,18 +478,68 @@ function renderChart() {
     }
 
     const labelFontSize = width < 400 ? '9px' : '11px';
-    g.append('text')
+    const labelGroup = g.append('g')
       .attr('class', `country-label label-${lp.code}`)
+      .style('cursor', 'pointer')
+      .on('mouseenter', () => setHoveredCountry(lp.code))
+      .on('mouseleave', () => setHoveredCountry(null));
+
+    const textEl = labelGroup.append('text')
       .attr('x', xLabel)
       .attr('y', lp.y)
       .attr('dy', '0.35em')
       .attr('fill', lp.color)
       .attr('font-size', labelFontSize)
       .attr('font-weight', '500')
-      .text(lp.name)
-      .style('cursor', 'pointer')
-      .on('mouseenter', () => setHoveredCountry(lp.code))
-      .on('mouseleave', () => setHoveredCountry(null));
+      .text(lp.name);
+
+    if (lp.isGroup && lp.description) {
+      const textWidth = textEl.node().getComputedTextLength();
+      const infoX = xLabel + textWidth + 4;
+      const infoR = 5;
+
+      const infoGroup = labelGroup.append('g')
+        .attr('class', 'group-info-icon')
+        .style('cursor', 'help');
+
+      infoGroup.append('circle')
+        .attr('cx', infoX + infoR)
+        .attr('cy', lp.y)
+        .attr('r', infoR)
+        .attr('fill', lp.color)
+        .attr('opacity', 0.15);
+
+      infoGroup.append('circle')
+        .attr('cx', infoX + infoR)
+        .attr('cy', lp.y)
+        .attr('r', infoR)
+        .attr('fill', 'none')
+        .attr('stroke', lp.color)
+        .attr('stroke-width', 1);
+
+      infoGroup.append('text')
+        .attr('x', infoX + infoR)
+        .attr('y', lp.y)
+        .attr('dy', '0.32em')
+        .attr('text-anchor', 'middle')
+        .attr('fill', lp.color)
+        .attr('font-size', '7px')
+        .attr('font-weight', '700')
+        .attr('font-style', 'italic')
+        .text('i');
+
+      infoGroup.on('mouseenter', function(event) {
+        const tooltip = document.getElementById('tooltip');
+        const chartContainer = document.getElementById('chart-container');
+        const rect = chartContainer.getBoundingClientRect();
+        tooltip.innerHTML = `<div style="font-size: 0.8rem;">${lp.description}</div>`;
+        tooltip.style.left = (event.clientX - rect.left + 10) + 'px';
+        tooltip.style.top = (event.clientY - rect.top - 20) + 'px';
+        tooltip.classList.add('active');
+      }).on('mouseleave', function() {
+        document.getElementById('tooltip').classList.remove('active');
+      });
+    }
   });
 
   const overlay = g.append('rect')
@@ -630,10 +714,16 @@ function renderChartToSvg(svg, width, height) {
 
   if (selectedCountries.length === 0) return;
 
-  // Calculate labelWidth based on longest selected country name
+  // Helper to find item (country or group) by code
+  const findItem = (code) => {
+    return data.countries.find(c => c.code === code) ||
+           (data.groups && data.groups.find(g => g.code === code));
+  };
+
+  // Calculate labelWidth based on longest selected item name
   const longestName = selectedCountries.reduce((max, code) => {
-    const country = data.countries.find(c => c.code === code);
-    return country && country.name.length > max ? country.name.length : max;
+    const item = findItem(code);
+    return item && item.name.length > max ? item.name.length : max;
   }, 0);
   const labelWidth = Math.max(60, longestName * 6 + 10);
 
@@ -644,18 +734,19 @@ function renderChartToSvg(svg, width, height) {
   const g = d3svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   const series = selectedCountries.map((code) => {
-    const country = data.countries.find(c => c.code === code);
+    const item = findItem(code);
+    if (!item) return null;
     return {
       code,
-      name: country.name,
+      name: item.name,
       color: getCountryColor(code),
       values: data.years.map(year => ({
         year,
-        value: country.data[year] || null,
+        value: item.data[year] || null,
         isProjection: year > currentYear
       })).filter(d => d.value !== null && d.value > 0)
     };
-  });
+  }).filter(Boolean);
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
   const x = d3.scaleLinear().domain(d3.extent(data.years)).range([0, innerWidth]);
@@ -682,7 +773,7 @@ function renderChartToSvg(svg, width, height) {
   // Label positions
   const labelPositions = series.map(s => {
     const lastValue = s.values[s.values.length - 1];
-    return { code: s.code, name: s.name, color: s.color, y: lastValue ? y(lastValue.value) : 0, originalY: lastValue ? y(lastValue.value) : 0 };
+    return { code: s.code, name: s.name, color: s.color, isGroup: s.isGroup, description: s.description, y: lastValue ? y(lastValue.value) : 0, originalY: lastValue ? y(lastValue.value) : 0 };
   }).sort((a, b) => a.y - b.y);
 
   const minGap = 14;
@@ -754,7 +845,7 @@ function roundRect(ctx, x, y, width, height, radius) {
 }
 
 function downloadJSON() {
-  // Download ALL data, not just selected countries
+  // Download GDP per capita data only (no population/gdp_total)
   const exportData = {
     source: data.source,
     indicator: data.indicator,
@@ -764,6 +855,13 @@ function downloadJSON() {
       code: c.code,
       name: c.name,
       data: c.data
+    })),
+    groups: data.groups.map(g => ({
+      code: g.code,
+      name: g.name,
+      description: g.description,
+      members: g.members,
+      data: g.data
     }))
   };
 
@@ -796,7 +894,10 @@ window.addEventListener('resize', () => {
 window.addEventListener('popstate', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const urlCountries = urlParams.get('country');
-  selectedCountries = urlCountries ? urlCountries.split('~').filter(code => data.countries.find(c => c.code === code)) : [];
+  const codeExists = (code) =>
+    data.countries.find(c => c.code === code) ||
+    (data.groups && data.groups.find(g => g.code === code));
+  selectedCountries = urlCountries ? urlCountries.split('~').filter(codeExists) : [];
   renderCountryList();
   renderChart();
   updateSelectedCount();
