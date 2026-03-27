@@ -1,0 +1,10 @@
+{
+  "name": "gdppercapita",
+  "private": true,
+  "scripts": {
+    "og": "node scripts/generate-og-images.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^22.0.0"
+  }
+}
