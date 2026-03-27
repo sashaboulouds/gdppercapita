@@ -4,9 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Changelog - GDP per capita</title>
-  <meta name="description" content="Changelog and updates for gdppercapita.fyi">
+  <meta name="description" content="Latest updates to gdppercapita.fyi: country groups, country pages, chart improvements, mobile optimization, and more.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/changelog">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Changelog",
+    "description": "Latest updates to gdppercapita.fyi",
+    "url": "https://gdppercapita.fyi/changelog.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    }
+  }
+  </script>
 </head>
 <body>
   <header>
@@ -27,10 +41,32 @@
 
     <div class="changelog-list">
       <article class="changelog-entry">
+        <div class="changelog-date">March 27, 2026</div>
+        <h2>Year Range Slider</h2>
+        <ul>
+          <li>Added dual-handle slider to filter chart by year range (1980-2030)</li>
+          <li>Drag the selected range to move both handles together</li>
+          <li>Click on year labels to edit them directly</li>
+          <li>Country values update dynamically based on selected range end year</li>
+          <li>Shareable URLs with <code>years=</code> parameter (e.g., <code>?years=1990-2010</code>)</li>
+        </ul>
+      </article>
+
+      <article class="changelog-entry">
+        <div class="changelog-date">March 27, 2026</div>
+        <h2>Projections Toggle</h2>
+        <ul>
+          <li>Default view now shows only historical data (1980-2025)</li>
+          <li>Added "+ projections" button to show IMF forecasts (2026-2030)</li>
+          <li>Button state syncs with slider position</li>
+        </ul>
+      </article>
+
+      <article class="changelog-entry">
         <div class="changelog-date">March 22, 2026</div>
         <h2>France Country Page</h2>
         <ul>
-          <li>Added dedicated <a href="/france.html">France country page</a> with key stats and quick comparisons</li>
+          <li>Added dedicated <a href="/france">France country page</a> with key stats and quick comparisons</li>
           <li>Compare France vs USA, G7, EU27, Eastern Europe, Western Europe</li>
         </ul>
       </article>
@@ -43,7 +79,7 @@
           <li>Groups appear in the country list sorted by GDP per capita alongside individual countries</li>
           <li>Pre-calculated aggregate GDP per capita using <code>Sum(GDP) / Sum(Population)</code> with 90% population coverage threshold</li>
           <li>Info icon on chart labels shows group description on hover</li>
-          <li>Added <a href="/articles/country-groups.html">documentation article</a> with methodology and group codes</li>
+          <li>Added <a href="/articles/country-groups">documentation article</a> with methodology and group codes</li>
         </ul>
       </article>
 
@@ -53,7 +89,7 @@
         <ul>
           <li>Simplified 66 country names for better readability (e.g., "Andorra" instead of "Andorra, Principality of")</li>
           <li>Dynamic label width based on longest selected country name</li>
-          <li>Added <a href="/articles/country-names.html">documentation article</a> with full list of changes</li>
+          <li>Added <a href="/articles/country-names">documentation article</a> with full list of changes</li>
           <li>Added FAQ entry explaining the standardization approach</li>
         </ul>
       </article>
@@ -99,8 +135,8 @@
           <li>View counter</li>
           <li>FAQ section explaining nominal vs PPP GDP</li>
           <li>Mobile responsive design</li>
-          <li>Article: <a href="/articles/why-we-built-this.html">Why we built this site</a> with comparison table</li>
-          <li>Article: <a href="/articles/why-nominal-not-ppp.html">Why nominal GDP, not PPP</a></li>
+          <li>Article: <a href="/articles/why-we-built-this">Why we built this site</a> with comparison table</li>
+          <li>Article: <a href="/articles/why-nominal-not-ppp">Why nominal GDP, not PPP</a></li>
           <li>Articles with table of contents and sticky navigation</li>
         </ul>
       </article>
@@ -122,12 +158,12 @@
       <div class="footer-links">
         <div class="footer-column">
           <span class="footer-column-title">Resources</span>
-          <a href="/articles/why-we-built-this.html">Why we built this</a>
-          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
-          <a href="/articles/country-names.html">Country names</a>
-          <a href="/articles/country-groups.html">Country groups</a>
-          <a href="/changelog.html">Changelog</a>
-          <a href="/reddit.html">Reddit</a>
+          <a href="/articles/why-we-built-this">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp">Why nominal, not PPP</a>
+          <a href="/articles/country-names">Country names</a>
+          <a href="/articles/country-groups">Country groups</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/reddit">Reddit</a>
         </div>
         <div class="footer-column">
           <span class="footer-column-title">Social</span>

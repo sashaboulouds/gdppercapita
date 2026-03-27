@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GDP per capita (nominal) - IMF Data</title>
-  <meta name="description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <meta name="description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook (October 2025).">
   <meta property="og:title" content="GDP per capita (nominal) - IMF Data">
-  <meta property="og:description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook 2026.">
+  <meta property="og:description" content="GDP per capita (nominal) in current US dollars. Compare countries over time with data from IMF World Economic Outlook (October 2025).">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gdppercapita.fyi/">
   <meta name="twitter:card" content="summary">
@@ -81,7 +81,7 @@
   <main>
     <section class="intro">
       <h1>GDP per capita <span class="nominal-tag">(nominal)</span></h1>
-      <p class="description">Average economic output per person in a country per year, in current US dollars. <u>Not</u> adjusted for purchasing power or local prices (see <a href="#faq-ppp">why</a>).</p>
+      <p class="description">Average economic output per person in a country per year, in current US dollars (IMF data). <u>Not</u> adjusted for purchasing power or local prices (see <a href="#faq-ppp">why</a>).</p>
     </section>
 
     <section class="chart-section">
@@ -100,6 +100,17 @@
           <div class="chart-container" id="chart-container">
             <svg id="chart"></svg>
             <div class="tooltip" id="tooltip"></div>
+          </div>
+          <div class="year-range-container">
+            <span id="year-min-label">1980</span>
+            <div class="year-range-slider">
+              <div class="year-range-track"></div>
+              <div class="year-range-fill" id="year-range-fill"></div>
+              <input type="range" id="year-min" min="1980" max="2030" value="1980">
+              <input type="range" id="year-max" min="1980" max="2030" value="2025">
+            </div>
+            <span id="year-max-label">2025</span>
+            <button class="projections-btn" id="btn-projections">+ projections</button>
           </div>
           <div class="chart-footer">
             <div class="chart-legend" id="chart-legend"></div>
@@ -183,7 +194,7 @@
             <span class="source-value"><a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">data.imf.org</a></span>
           </div>
         </div>
-        <p class="source-note">Note: Some countries (Afghanistan, Eritrea, Lebanon, Pakistan, Sri Lanka, Syria, West Bank and Gaza) show latest available data due to missing recent figures. Years after <span id="current-year-note"></span> are IMF projections.</p>
+        <p class="source-note">Note: Some countries (Afghanistan, Eritrea, Lebanon, Pakistan, Sri Lanka, Syria, West Bank and Gaza) show latest available data due to missing recent figures. Years <u>after <span id="current-year-note"></span></u> (2026+) are IMF projections.</p>
       </div>
     </section>
 
@@ -214,12 +225,12 @@
       <div class="footer-links">
         <div class="footer-column">
           <span class="footer-column-title">Resources</span>
-          <a href="/articles/why-we-built-this.html">Why we built this</a>
-          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
-          <a href="/articles/country-names.html">Country names</a>
-          <a href="/articles/country-groups.html">Country groups</a>
-          <a href="/changelog.html">Changelog</a>
-          <a href="/reddit.html">Reddit</a>
+          <a href="/articles/why-we-built-this">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp">Why nominal, not PPP</a>
+          <a href="/articles/country-names">Country names</a>
+          <a href="/articles/country-groups">Country groups</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/reddit">Reddit</a>
         </div>
         <div class="footer-column">
           <span class="footer-column-title">Social</span>

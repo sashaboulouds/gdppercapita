@@ -131,6 +131,21 @@ h1 {
   color: var(--text-muted);
 }
 
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle a {
+  color: var(--text-muted);
+  text-decoration: underline;
+}
+
+.subtitle a:hover {
+  color: var(--accent);
+}
+
 .description {
   color: var(--text-muted);
   font-size: 0.95rem;
@@ -389,6 +404,204 @@ h1 {
 
 .chart-point.dimmed {
   opacity: 0;
+}
+
+/* Year Range Slider */
+.year-range-container {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 0.25rem;
+  height: 20px;
+  position: relative;
+}
+
+.year-range-slider {
+  position: relative;
+  height: 20px;
+  flex: 1;
+}
+
+.year-range-track {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 2px;
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.year-range-fill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  background: transparent;
+  cursor: grab;
+  z-index: 1;
+}
+
+.year-range-fill::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #d1d5db;
+  border-radius: 4px;
+  transition: height 0.15s ease;
+}
+
+.year-range-fill::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(16, 185, 129, 0.4);
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.year-range-slider:hover .year-range-fill::after {
+  background: #10B981;
+}
+
+.year-range-fill:active {
+  cursor: grabbing;
+}
+
+.year-range-slider input[type="range"] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.year-range-slider input[type="range"]#year-min {
+  z-index: 4;
+}
+
+.year-range-slider input[type="range"]#year-max {
+  z-index: 3;
+}
+
+/* Hide native tracks - we use custom track/fill */
+.year-range-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.year-range-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  margin-top: -8px;
+  border: none;
+  position: relative;
+  z-index: 3;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.year-range-slider:hover input[type="range"]::-webkit-slider-thumb {
+  background: #10B981;
+}
+
+.year-range-slider input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.year-range-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  border: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.year-range-slider:hover input[type="range"]::-moz-range-thumb {
+  background: #10B981;
+}
+
+#year-min-label,
+#year-max-label {
+  font-size: 13px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #374151;
+  min-width: 36px;
+  text-align: center;
+  line-height: 20px;
+  cursor: text;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+#year-min-label:hover,
+#year-max-label:hover {
+  background: #f3f4f6;
+}
+
+.year-label-input {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #374151;
+  width: 44px;
+  text-align: center;
+  padding: 2px 4px;
+  border: 1px solid #10B981;
+  border-radius: 3px;
+  outline: none;
+}
+
+.projections-btn {
+  font-size: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #666666;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: 8px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.projections-btn:hover {
+  border-color: #10B981;
+  color: #10B981;
+}
+
+.projections-btn.active {
+  background: #10B981;
+  border-color: #10B981;
+  color: white;
 }
 
 /* Chart Footer */

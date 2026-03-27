@@ -1,8 +1,11 @@
 let data = null;
 let selectedCountries = [];
 let currentYear = new Date().getFullYear();
+const lastHistoricalYear = 2025; // IMF WEO Oct 2025: data through 2025, projections from 2026
 let maxGdp = 0;
 let hoveredCountry = null;
+let yearRangeMin = 1980;
+let yearRangeMax = 2025; // Default to last historical year (no projections)
 
 const COLORS = [
   '#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6',
@@ -33,13 +36,23 @@ async function init() {
   currentYear = Math.min(new Date().getFullYear(), maxYear);
 
   const yearNote = document.getElementById('current-year-note');
-  if (yearNote) yearNote.textContent = currentYear;
+  if (yearNote) yearNote.textContent = lastHistoricalYear;
 
   // Calculate max GDP using latest available value for each country
   maxGdp = Math.max(...data.countries.map(c => getLatestValue(c)));
 
   const urlParams = new URLSearchParams(window.location.search);
   const urlCountries = urlParams.get('country');
+  const urlYears = urlParams.get('years');
+
+  // Parse years param (format: 1988-2019)
+  if (urlYears) {
+    const [start, end] = urlYears.split('-').map(Number);
+    if (start >= 1980 && start <= 2030 && end >= 1980 && end <= 2030 && start < end) {
+      yearRangeMin = start;
+      yearRangeMax = end;
+    }
+  }
 
   // Helper to check if code exists (country or group)
   const codeExists = (code) =>
@@ -66,10 +79,28 @@ async function init() {
   updateSelectedCount();
 }
 
-// Get latest non-null value for a country
+// Recalculate maxGdp based on current year range
+function updateMaxGdp() {
+  maxGdp = Math.max(...data.countries.map(c => getLatestValue(c)));
+}
+
+// Update projections button state based on yearRangeMax
+function updateProjectionsButton() {
+  const btn = document.getElementById('btn-projections');
+  if (!btn) return;
+  if (yearRangeMax > lastHistoricalYear) {
+    btn.classList.add('active');
+    btn.textContent = '✓ projections';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '+ projections';
+  }
+}
+
+// Get latest non-null value for a country (within selected year range)
 function getLatestValue(country) {
-  // Try current year first, then go backwards
-  for (let year = currentYear; year >= 1980; year--) {
+  // Use yearRangeMax as the upper bound
+  for (let year = yearRangeMax; year >= yearRangeMin; year--) {
     if (country.data[year] && country.data[year] > 0) {
       return country.data[year];
     }
@@ -77,9 +108,9 @@ function getLatestValue(country) {
   return 0;
 }
 
-// Get latest year with data for a country
+// Get latest year with data for a country (within selected year range)
 function getLatestYear(country) {
-  for (let year = currentYear; year >= 1980; year--) {
+  for (let year = yearRangeMax; year >= yearRangeMin; year--) {
     if (country.data[year] && country.data[year] > 0) {
       return year;
     }
@@ -146,6 +177,218 @@ function setupActionButtons() {
     updateURL();
     updateSelectedCount();
   });
+
+  // Year range slider
+  const yearMinSlider = document.getElementById('year-min');
+  const yearMaxSlider = document.getElementById('year-max');
+  const yearMinLabel = document.getElementById('year-min-label');
+  const yearMaxLabel = document.getElementById('year-max-label');
+  const yearRangeFill = document.getElementById('year-range-fill');
+
+  function updateYearRangeFill() {
+    if (!yearMinSlider || !yearMaxSlider || !yearRangeFill) return;
+    const min = parseInt(yearMinSlider.min);
+    const max = parseInt(yearMinSlider.max);
+    const minVal = parseInt(yearMinSlider.value);
+    const maxVal = parseInt(yearMaxSlider.value);
+    const leftPercent = ((minVal - min) / (max - min)) * 100;
+    const rightPercent = ((maxVal - min) / (max - min)) * 100;
+    yearRangeFill.style.left = leftPercent + '%';
+    yearRangeFill.style.width = (rightPercent - leftPercent) + '%';
+  }
+
+  if (yearMinSlider && yearMaxSlider) {
+    // Initialize slider values from yearRangeMin/Max (may be set from URL)
+    yearMinSlider.value = yearRangeMin;
+    yearMaxSlider.value = yearRangeMax;
+    yearMinLabel.textContent = yearRangeMin;
+    yearMaxLabel.textContent = yearRangeMax;
+    updateYearRangeFill();
+
+    // Drag the fill to move the range
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartMin = 0;
+    let dragStartMax = 0;
+
+    if (yearRangeFill) {
+      yearRangeFill.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartMin = parseInt(yearMinSlider.value);
+        dragStartMax = parseInt(yearMaxSlider.value);
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const slider = yearMinSlider.parentElement;
+        const sliderRect = slider.getBoundingClientRect();
+        const deltaX = e.clientX - dragStartX;
+        const deltaPercent = deltaX / sliderRect.width;
+        const range = parseInt(yearMinSlider.max) - parseInt(yearMinSlider.min);
+        const deltaYears = Math.round(deltaPercent * range);
+
+        let newMin = dragStartMin + deltaYears;
+        let newMax = dragStartMax + deltaYears;
+        const span = dragStartMax - dragStartMin;
+
+        // Clamp to bounds
+        if (newMin < parseInt(yearMinSlider.min)) {
+          newMin = parseInt(yearMinSlider.min);
+          newMax = newMin + span;
+        }
+        if (newMax > parseInt(yearMaxSlider.max)) {
+          newMax = parseInt(yearMaxSlider.max);
+          newMin = newMax - span;
+        }
+
+        yearMinSlider.value = newMin;
+        yearMaxSlider.value = newMax;
+        yearRangeMin = newMin;
+        yearRangeMax = newMax;
+        yearMinLabel.textContent = newMin;
+        yearMaxLabel.textContent = newMax;
+        updateYearRangeFill();
+        updateMaxGdp();
+        updateProjectionsButton();
+        renderCountryList();
+        renderChart();
+        updateURL();
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+    }
+
+    yearMinSlider.addEventListener('input', () => {
+      let minVal = parseInt(yearMinSlider.value);
+      let maxVal = parseInt(yearMaxSlider.value);
+      if (minVal > maxVal - 3) {
+        minVal = maxVal - 3;
+        yearMinSlider.value = minVal;
+      }
+      yearRangeMin = minVal;
+      yearMinLabel.textContent = minVal;
+      updateYearRangeFill();
+      updateMaxGdp();
+      renderCountryList();
+      renderChart();
+      updateURL();
+    });
+
+    yearMaxSlider.addEventListener('input', () => {
+      let minVal = parseInt(yearMinSlider.value);
+      let maxVal = parseInt(yearMaxSlider.value);
+      if (maxVal < minVal + 3) {
+        maxVal = minVal + 3;
+        yearMaxSlider.value = maxVal;
+      }
+      yearRangeMax = maxVal;
+      yearMaxLabel.textContent = maxVal;
+      updateYearRangeFill();
+      updateMaxGdp();
+      renderCountryList();
+      renderChart();
+      updateURL();
+      updateProjectionsButton();
+    });
+
+    // Editable year labels
+    function makeEditable(label, slider, isMin) {
+      label.addEventListener('click', () => {
+        const currentValue = slider.value;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentValue;
+        input.className = 'year-label-input';
+        if (isMin) {
+          input.style.left = '0';
+        } else {
+          input.style.right = '0';
+        }
+        label.style.visibility = 'hidden';
+        label.parentNode.insertBefore(input, isMin ? label.nextSibling : label);
+        input.focus();
+        input.select();
+
+        const applyValue = () => {
+          let newValue = parseInt(input.value);
+          const min = parseInt(slider.min);
+          const max = parseInt(slider.max);
+          const otherValue = isMin ? parseInt(yearMaxSlider.value) : parseInt(yearMinSlider.value);
+
+          if (isNaN(newValue)) newValue = parseInt(currentValue);
+          newValue = Math.max(min, Math.min(max, newValue));
+
+          if (isMin && newValue > otherValue - 3) newValue = otherValue - 3;
+          if (!isMin && newValue < otherValue + 3) newValue = otherValue + 3;
+
+          slider.value = newValue;
+          label.textContent = newValue;
+          if (isMin) {
+            yearRangeMin = newValue;
+          } else {
+            yearRangeMax = newValue;
+          }
+          input.remove();
+          label.style.visibility = 'visible';
+          updateYearRangeFill();
+          updateMaxGdp();
+          renderCountryList();
+          renderChart();
+          updateURL();
+          if (!isMin) updateProjectionsButton();
+        };
+
+        input.addEventListener('blur', applyValue);
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') applyValue();
+          if (e.key === 'Escape') {
+            input.remove();
+            label.style.visibility = 'visible';
+          }
+        });
+      });
+    }
+
+    makeEditable(yearMinLabel, yearMinSlider, true);
+    makeEditable(yearMaxLabel, yearMaxSlider, false);
+
+    // Projections button
+    const projectionsBtn = document.getElementById('btn-projections');
+    if (projectionsBtn) {
+      // Check if projections are already enabled (yearRangeMax > 2025)
+      if (yearRangeMax > lastHistoricalYear) {
+        projectionsBtn.classList.add('active');
+        projectionsBtn.textContent = '✓ projections';
+      }
+
+      projectionsBtn.addEventListener('click', () => {
+        if (projectionsBtn.classList.contains('active')) {
+          // Disable projections
+          projectionsBtn.classList.remove('active');
+          projectionsBtn.textContent = '+ projections';
+          yearRangeMax = lastHistoricalYear;
+          yearMaxSlider.value = yearRangeMax;
+          yearMaxLabel.textContent = yearRangeMax;
+        } else {
+          // Enable projections
+          projectionsBtn.classList.add('active');
+          projectionsBtn.textContent = '✓ projections';
+          yearRangeMax = 2030;
+          yearMaxSlider.value = yearRangeMax;
+          yearMaxLabel.textContent = yearRangeMax;
+        }
+        updateYearRangeFill();
+        updateMaxGdp();
+        renderCountryList();
+        renderChart();
+        updateURL();
+      });
+    }
+  }
 }
 
 function updateSelectedCount() {
@@ -218,7 +461,6 @@ function renderCountryItem(c, isInSelectedSection) {
   const isSelected = selectedCountries.includes(c.code);
   const barColor = isSelected ? getCountryColor(c.code) : '#d1d5db';
   const barWidth = maxGdp > 0 ? (c.value / maxGdp) * 100 : 0;
-  const yearNote = c.latestYear < currentYear ? ` (${c.latestYear})` : '';
   const itemClass = c.isGroup ? 'country-item group-item' : 'country-item';
 
   return `
@@ -230,7 +472,7 @@ function renderCountryItem(c, isInSelectedSection) {
           <div class="country-bar" style="width: ${barWidth}%; background: ${barColor}"></div>
         </div>
       </div>
-      <span class="country-value">$${formatNumber(c.value)}${yearNote}</span>
+      <span class="country-value">$${formatNumber(c.value)}</span>
     </div>
   `;
 }
@@ -305,6 +547,12 @@ function updateURL() {
   } else {
     url.searchParams.delete('country');
   }
+  // Add years param only if not default range (1980-2025)
+  if (yearRangeMin !== 1980 || yearRangeMax !== 2025) {
+    url.searchParams.set('years', `${yearRangeMin}-${yearRangeMax}`);
+  } else {
+    url.searchParams.delete('years');
+  }
   window.history.replaceState({}, '', url);
 }
 
@@ -357,6 +605,9 @@ function renderChart() {
 
   const g = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+  // Filter years based on range
+  const filteredYears = data.years.filter(y => y >= yearRangeMin && y <= yearRangeMax);
+
   const series = selectedCountries.map((code) => {
     const item = findItem(code);
     if (!item) return null;
@@ -367,16 +618,16 @@ function renderChart() {
       color: getCountryColor(code),
       isGroup,
       description: item.description || null,
-      values: data.years.map(year => ({
+      values: filteredYears.map(year => ({
         year,
         value: item.data[year] || null,
-        isProjection: year > currentYear
+        isProjection: year > lastHistoricalYear
       })).filter(d => d.value !== null && d.value > 0)
     };
   }).filter(Boolean);
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
-  const x = d3.scaleLinear().domain(d3.extent(data.years)).range([0, innerWidth]);
+  const x = d3.scaleLinear().domain([yearRangeMin, yearRangeMax]).range([0, innerWidth]);
   const y = d3.scaleLinear().domain([0, d3.max(allValues) * 1.1]).range([innerHeight, 0]);
 
   const xTicks = width < 350 ? 4 : width < 450 ? 6 : 10;
@@ -551,7 +802,7 @@ function renderChart() {
   overlay.on('mousemove', function(event) {
     const [mx] = d3.pointer(event);
     const year = Math.round(x.invert(mx));
-    const clampedYear = Math.max(data.years[0], Math.min(year, data.years[data.years.length - 1]));
+    const clampedYear = Math.max(yearRangeMin, Math.min(year, yearRangeMax));
 
     crosshair.attr('x1', x(clampedYear)).attr('x2', x(clampedYear)).style('opacity', 1);
 
@@ -568,7 +819,7 @@ function renderChart() {
       .sort((a, b) => b.value - a.value);
 
     if (tooltipData.length > 0) {
-      const yearLabel = clampedYear > currentYear ? `${clampedYear} (projection)` : clampedYear;
+      const yearLabel = clampedYear > lastHistoricalYear ? `${clampedYear} (projection)` : clampedYear;
       tooltip.innerHTML = `
         <div class="tooltip-year">${yearLabel}</div>
         ${tooltipData.map(d => `
@@ -687,7 +938,7 @@ function downloadPNG() {
     ctx.fillStyle = '#666666';
     ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`Data: IMF World Economic Outlook (2026) · Years after ${currentYear} are projections`, padding, footerY);
+    ctx.fillText(`Data: IMF World Economic Outlook (Oct 2025) · Years after ${lastHistoricalYear} are projections`, padding, footerY);
 
     ctx.fillStyle = '#10B981';
     ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
@@ -740,16 +991,16 @@ function renderChartToSvg(svg, width, height) {
       code,
       name: item.name,
       color: getCountryColor(code),
-      values: data.years.map(year => ({
+      values: data.years.filter(y => y >= yearRangeMin && y <= yearRangeMax).map(year => ({
         year,
         value: item.data[year] || null,
-        isProjection: year > currentYear
+        isProjection: year > lastHistoricalYear
       })).filter(d => d.value !== null && d.value > 0)
     };
   }).filter(Boolean);
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
-  const x = d3.scaleLinear().domain(d3.extent(data.years)).range([0, innerWidth]);
+  const x = d3.scaleLinear().domain([yearRangeMin, yearRangeMax]).range([0, innerWidth]);
   const y = d3.scaleLinear().domain([0, d3.max(allValues) * 1.1]).range([innerHeight, 0]);
 
   // Axes
@@ -894,10 +1145,38 @@ window.addEventListener('resize', () => {
 window.addEventListener('popstate', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const urlCountries = urlParams.get('country');
+  const urlYears = urlParams.get('years');
   const codeExists = (code) =>
     data.countries.find(c => c.code === code) ||
     (data.groups && data.groups.find(g => g.code === code));
   selectedCountries = urlCountries ? urlCountries.split('~').filter(codeExists) : [];
+
+  // Handle years param
+  if (urlYears) {
+    const [start, end] = urlYears.split('-').map(Number);
+    if (start >= 1980 && start <= 2030 && end >= 1980 && end <= 2030 && start < end) {
+      yearRangeMin = start;
+      yearRangeMax = end;
+    }
+  } else {
+    yearRangeMin = 1980;
+    yearRangeMax = 2030;
+  }
+  // Update slider UI
+  const yearMinSlider = document.getElementById('year-min');
+  const yearMaxSlider = document.getElementById('year-max');
+  const yearMinLabel = document.getElementById('year-min-label');
+  const yearMaxLabel = document.getElementById('year-max-label');
+  if (yearMinSlider && yearMaxSlider) {
+    yearMinSlider.value = yearRangeMin;
+    yearMaxSlider.value = yearRangeMax;
+    yearMinLabel.textContent = yearRangeMin;
+    yearMaxLabel.textContent = yearRangeMax;
+    updateYearRangeFill();
+  }
+
+  updateMaxGdp();
+  updateProjectionsButton();
   renderCountryList();
   renderChart();
   updateSelectedCount();

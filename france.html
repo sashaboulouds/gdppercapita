@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>France GDP per capita (nominal) - IMF Data</title>
-  <meta name="description" content="France GDP per capita is $51,708 (2026). Track France's economic output per person from 1980 to 2030 with IMF World Economic Outlook data.">
+  <meta name="description" content="France GDP per capita is projected at $51,708 (2026). Track France's economic output per person from 1980 to 2030 with IMF World Economic Outlook data.">
   <meta property="og:title" content="France GDP per capita (nominal) - IMF Data">
-  <meta property="og:description" content="France GDP per capita is $51,708 (2026). Track economic output per person with IMF data.">
+  <meta property="og:description" content="France GDP per capita is projected at $51,708 (2026). Track economic output per person with IMF data.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gdppercapita.fyi/france">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="France GDP per capita (nominal) - IMF Data">
-  <meta name="twitter:description" content="France GDP per capita is $51,708 (2026). IMF World Economic Outlook data.">
+  <meta name="twitter:description" content="France GDP per capita projected at $51,708 (2026). IMF World Economic Outlook data.">
   <meta property="og:image" content="https://gdppercapita.fyi/og-image.png">
   <meta name="twitter:image" content="https://gdppercapita.fyi/og-image.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -87,7 +87,7 @@
         <div class="country-stats">
           <div class="stat-item">
             <span class="stat-number stat-highlight">$51,708</span>
-            <span class="stat-desc">GDP per capita (2026)</span>
+            <span class="stat-desc">Projected 2026</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">$57,606</span>
@@ -118,6 +118,17 @@
           <div class="chart-container" id="chart-container">
             <svg id="chart"></svg>
             <div class="tooltip" id="tooltip"></div>
+          </div>
+          <div class="year-range-container">
+            <span id="year-min-label">1980</span>
+            <div class="year-range-slider">
+              <div class="year-range-track"></div>
+              <div class="year-range-fill" id="year-range-fill"></div>
+              <input type="range" id="year-min" min="1980" max="2030" value="1980">
+              <input type="range" id="year-max" min="1980" max="2030" value="2025">
+            </div>
+            <span id="year-max-label">2025</span>
+            <button class="projections-btn" id="btn-projections">+ projections</button>
           </div>
           <div class="chart-footer">
             <div class="chart-legend" id="chart-legend"></div>
@@ -193,12 +204,12 @@
       <div class="footer-links">
         <div class="footer-column">
           <span class="footer-column-title">Resources</span>
-          <a href="/articles/why-we-built-this.html">Why we built this</a>
-          <a href="/articles/why-nominal-not-ppp.html">Why nominal, not PPP</a>
-          <a href="/articles/country-names.html">Country names</a>
-          <a href="/articles/country-groups.html">Country groups</a>
-          <a href="/changelog.html">Changelog</a>
-          <a href="/reddit.html">Reddit</a>
+          <a href="/articles/why-we-built-this">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp">Why nominal, not PPP</a>
+          <a href="/articles/country-names">Country names</a>
+          <a href="/articles/country-groups">Country groups</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/reddit">Reddit</a>
         </div>
         <div class="footer-column">
           <span class="footer-column-title">Social</span>
