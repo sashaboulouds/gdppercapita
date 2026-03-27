@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equatorial Guinea GDP per capita (nominal) - IMF Data</title>
+  <meta name="description" content="Equatorial Guinea GDP per capita is projected at $8,378 (2026). Track Equatorial Guinea's economic output per person from 1980 to 2030 with IMF World Economic Outlook data.">
+  <meta property="og:title" content="Equatorial Guinea GDP per capita (nominal) - IMF Data">
+  <meta property="og:description" content="Equatorial Guinea GDP per capita is projected at $8,378 (2026). Track economic output per person with IMF data.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gdppercapita.fyi/equatorial-guinea">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Equatorial Guinea GDP per capita (nominal) - IMF Data">
+  <meta name="twitter:description" content="Equatorial Guinea GDP per capita projected at $8,378 (2026). IMF World Economic Outlook data.">
+  <meta property="og:image" content="https://gdppercapita.fyi/screenshots/countries/equatorial-guinea.png">
+  <meta property="og:image:width" content="2400">
+  <meta property="og:image:height" content="1260">
+  <meta name="twitter:image" content="https://gdppercapita.fyi/screenshots/countries/equatorial-guinea.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/equatorial-guinea">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Equatorial Guinea GDP per Capita",
+    "url": "https://gdppercapita.fyi/equatorial-guinea",
+    "description": "Equatorial Guinea GDP per capita from 1980 to 2030 with IMF World Economic Outlook data.",
+    "image": "https://gdppercapita.fyi/screenshots/countries/equatorial-guinea.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    },
+    "about": {
+      "@type": "Country",
+      "name": "Equatorial Guinea"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Equatorial Guinea GDP per capita (nominal)",
+    "description": "GDP per capita in current US dollars for Equatorial Guinea from 1980 to 2030, including IMF projections.",
+    "url": "https://gdppercapita.fyi/equatorial-guinea",
+    "license": "https://www.imf.org/external/terms.htm",
+    "creator": {
+      "@type": "Organization",
+      "name": "International Monetary Fund",
+      "url": "https://www.imf.org"
+    },
+    "temporalCoverage": "1980/2030",
+    "spatialCoverage": {
+      "@type": "Country",
+      "name": "Equatorial Guinea"
+    },
+    "variableMeasured": "GDP per capita in current US dollars"
+  }
+  </script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="country-page">
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+      <div class="header-right">
+        <span class="view-count" id="view-count"></span>
+        <button class="share-btn" id="btn-share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          Share
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="country-hero">
+      <div class="country-hero-content">
+        <h1>Equatorial Guinea GDP per capita <span class="nominal-tag">(nominal)</span></h1>
+        <div class="country-stats">
+          <div class="stat-item">
+            <span class="stat-number stat-highlight">$8,378</span>
+            <span class="stat-desc">Projected 2026</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-number">$8,647</span>
+            <span class="stat-desc">Projected 2030</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">+3%</span>
+            <span class="stat-desc">Growth 2026-30</span>
+          </div>
+
+        </div>
+        <p class="country-intro">Equatorial Guinea ranks <u>99th</u> in the world by GDP per capita (2026, projected). GDP per capita measures the average economic output per person in current US dollars, based on <a href="https://data.imf.org/en/Data-Explorer?datasetUrn=IMF.RES:WEO(9.0.0)" target="_blank" rel="noopener">IMF World Economic Outlook</a> data.</p>
+      </div>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-layout">
+        <div class="country-panel">
+          <div class="panel-header">
+            <span class="panel-title">Selected (<span id="selected-count">0</span>)</span>
+            <button class="clear-btn" id="btn-clear">Clear all</button>
+          </div>
+          <div class="country-search">
+            <input type="text" id="country-input" placeholder="Search country or region..." autocomplete="off">
+          </div>
+          <div class="sort-box" id="sort-gdp" data-order="desc">
+            Sort by: GDP per capita, <span class="sort-year"></span> <span class="sort-arrow">↓</span>
+          </div>
+          <div class="country-list" id="country-list"></div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-container" id="chart-container">
+            <svg id="chart"></svg>
+            <div class="tooltip" id="tooltip"></div>
+          </div>
+          <div class="year-range-container">
+            <span id="year-min-label">1980</span>
+            <div class="year-range-slider">
+              <div class="year-range-track"></div>
+              <div class="year-range-fill" id="year-range-fill"></div>
+              <input type="range" id="year-min" min="1980" max="2030" value="1980">
+              <input type="range" id="year-max" min="1980" max="2030" value="2025">
+            </div>
+            <span id="year-max-label">2025</span>
+            <label class="projections-toggle" id="projections-toggle">
+              <span class="projections-checkbox"></span>
+              <span class="projections-label">Projections</span>
+            </label>
+          </div>
+          <div class="chart-footer">
+            <div class="chart-legend" id="chart-legend"></div>
+            <div class="chart-actions">
+              <button class="action-btn" id="btn-download-png" title="Download chart as PNG">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                PNG
+              </button>
+              <button class="action-btn" id="btn-download-json" title="Download data as JSON">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                JSON
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare-section">
+      <h2>Compare Equatorial Guinea</h2>
+      <div class="compare-buttons">
+        <a href="/?country=GNQ~CMR~GAB" class="compare-btn">vs Neighbors</a>
+        <a href="/?country=GNQ~CHN" class="compare-btn">vs China</a>
+        <a href="/?country=GNQ~WORLD" class="compare-btn">vs World</a>
+        <a href="/?country=GNQ~MDA~COL~MHL~JAM" class="compare-btn">vs similar economies</a>
+        <a href="/" class="compare-btn compare-btn-primary">Custom comparison</a>
+      </div>
+    </section>
+
+    <section class="source-section">
+      <h2>Source</h2>
+      <div class="source-info">
+        <div class="source-grid">
+          <div class="source-item">
+            <span class="source-label">Data provider</span>
+            <span class="source-value">International Monetary Fund, World Economic Outlook (October 2025)</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Retrieved</span>
+            <span class="source-value">March 21, 2026</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Date range</span>
+            <span class="source-value">1980 – 2030</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Unit</span>
+            <span class="source-value">Current US dollars per person</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data. Charts and code are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>. Data from IMF is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Countries</span>
+          <a href="/united-states">United States</a>
+          <a href="/china">China</a>
+          <a href="/germany">Germany</a>
+          <a href="/japan">Japan</a>
+          <a href="/india">India</a>
+          <a href="/united-kingdom">United Kingdom</a>
+          <a href="/france">France</a>
+          <a href="/countries">All</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp">Why nominal, not PPP</a>
+          <a href="/articles/country-names">Country names</a>
+          <a href="/articles/country-groups">Country groups</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/reddit">Reddit</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    window.PRESELECTED_COUNTRIES = ['GNQ'];
+  </script>
+  <script src="/app.js"></script>
+</body>
+</html>

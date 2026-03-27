@@ -30,7 +30,7 @@ const DEFAULT_COUNTRIES = [
 ];
 
 async function init() {
-  const response = await fetch('data/gdp-per-capita.json');
+  const response = await fetch('/data/gdp-per-capita.json');
   data = await response.json();
 
   const maxYear = Math.max(...data.years);

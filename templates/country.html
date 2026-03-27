@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{name}} GDP per capita (nominal) - IMF Data</title>
+  <meta name="description" content="{{name}} GDP per capita is {{latest_label_lower}} at {{gdp_latest_fmt}} ({{latest_year}}). Track {{name}}'s economic output per person from 1980 to 2030 with IMF World Economic Outlook data.">
+  <meta property="og:title" content="{{name}} GDP per capita (nominal) - IMF Data">
+  <meta property="og:description" content="{{name}} GDP per capita is {{latest_label_lower}} at {{gdp_latest_fmt}} ({{latest_year}}). Track economic output per person with IMF data.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gdppercapita.fyi/{{slug}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{name}} GDP per capita (nominal) - IMF Data">
+  <meta name="twitter:description" content="{{name}} GDP per capita {{latest_label_lower}} at {{gdp_latest_fmt}} ({{latest_year}}). IMF World Economic Outlook data.">
+  <meta property="og:image" content="https://gdppercapita.fyi/screenshots/countries/{{slug}}.png">
+  <meta property="og:image:width" content="2400">
+  <meta property="og:image:height" content="1260">
+  <meta name="twitter:image" content="https://gdppercapita.fyi/screenshots/countries/{{slug}}.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/{{slug}}">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{name}} GDP per Capita",
+    "url": "https://gdppercapita.fyi/{{slug}}",
+    "description": "{{name}} GDP per capita from 1980 to 2030 with IMF World Economic Outlook data.",
+    "image": "https://gdppercapita.fyi/screenshots/countries/{{slug}}.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "gdppercapita.fyi"
+    },
+    "about": {
+      "@type": "Country",
+      "name": "{{name}}"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "{{name}} GDP per capita (nominal)",
+    "description": "GDP per capita in current US dollars for {{name}} from 1980 to 2030, including IMF projections.",
+    "url": "https://gdppercapita.fyi/{{slug}}",
+    "license": "https://www.imf.org/external/terms.htm",
+    "creator": {
+      "@type": "Organization",
+      "name": "International Monetary Fund",
+      "url": "https://www.imf.org"
+    },
+    "temporalCoverage": "1980/2030",
+    "spatialCoverage": {
+      "@type": "Country",
+      "name": "{{name}}"
+    },
+    "variableMeasured": "GDP per capita in current US dollars"
+  }
+  </script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="country-page">
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+      <div class="header-right">
+        <span class="view-count" id="view-count"></span>
+        <button class="share-btn" id="btn-share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          Share
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="country-hero">
+      <div class="country-hero-content">
+        <h1>{{name}} GDP per capita <span class="nominal-tag">(nominal)</span></h1>
+        <div class="country-stats">
+          <div class="stat-item">
+            <span class="stat-number stat-highlight">{{gdp_latest_fmt}}</span>
+            <span class="stat-desc">{{latest_label}} {{latest_year}}</span>
+          </div>
+{{#if has_2030}}
+          <div class="stat-item">
+            <span class="stat-number">{{gdp_2030_fmt}}</span>
+            <span class="stat-desc">Projected 2030</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{growth_fmt}}</span>
+            <span class="stat-desc">Growth {{latest_year}}-30</span>
+          </div>
+{{/if}}
+        </div>
+        <p class="country-intro">{{intro}}</p>
+      </div>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-layout">
+        <div class="country-panel">
+          <div class="panel-header">
+            <span class="panel-title">Selected (<span id="selected-count">0</span>)</span>
+            <button class="clear-btn" id="btn-clear">Clear all</button>
+          </div>
+          <div class="country-search">
+            <input type="text" id="country-input" placeholder="Search country or region..." autocomplete="off">
+          </div>
+          <div class="sort-box" id="sort-gdp" data-order="desc">
+            Sort by: GDP per capita, <span class="sort-year"></span> <span class="sort-arrow">↓</span>
+          </div>
+          <div class="country-list" id="country-list"></div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-container" id="chart-container">
+            <svg id="chart"></svg>
+            <div class="tooltip" id="tooltip"></div>
+          </div>
+          <div class="year-range-container">
+            <span id="year-min-label">1980</span>
+            <div class="year-range-slider">
+              <div class="year-range-track"></div>
+              <div class="year-range-fill" id="year-range-fill"></div>
+              <input type="range" id="year-min" min="1980" max="2030" value="1980">
+              <input type="range" id="year-max" min="1980" max="2030" value="2025">
+            </div>
+            <span id="year-max-label">2025</span>
+            <label class="projections-toggle" id="projections-toggle">
+              <span class="projections-checkbox"></span>
+              <span class="projections-label">Projections</span>
+            </label>
+          </div>
+          <div class="chart-footer">
+            <div class="chart-legend" id="chart-legend"></div>
+            <div class="chart-actions">
+              <button class="action-btn" id="btn-download-png" title="Download chart as PNG">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                PNG
+              </button>
+              <button class="action-btn" id="btn-download-json" title="Download data as JSON">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                JSON
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare-section">
+      <h2>Compare {{name}}</h2>
+      <div class="compare-buttons">
+{{comparisons}}
+        <a href="/" class="compare-btn compare-btn-primary">Custom comparison</a>
+      </div>
+    </section>
+
+    <section class="source-section">
+      <h2>Source</h2>
+      <div class="source-info">
+        <div class="source-grid">
+          <div class="source-item">
+            <span class="source-label">Data provider</span>
+            <span class="source-value">International Monetary Fund, World Economic Outlook (October 2025)</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Retrieved</span>
+            <span class="source-value">March 21, 2026</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Date range</span>
+            <span class="source-value">1980 – 2030</span>
+          </div>
+          <div class="source-item">
+            <span class="source-label">Unit</span>
+            <span class="source-value">Current US dollars per person</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{{footer}}
+
+  <script>
+    window.PRESELECTED_COUNTRIES = ['{{code}}'];
+  </script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All countries - GDP per capita</title>
+  <meta name="description" content="Browse GDP per capita data for all 197 countries. Find economic data from IMF World Economic Outlook.">
+  <meta property="og:title" content="All countries - GDP per capita">
+  <meta property="og:description" content="Browse GDP per capita data for all 197 countries.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gdppercapita.fyi/countries">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://gdppercapita.fyi/countries">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .countries-page { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+    .countries-page h1 { margin-bottom: 0.5rem; }
+    .countries-page .subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+    .countries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem 1rem;
+    }
+    .countries-grid a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
+    }
+    .countries-grid a:hover { color: var(--accent); }
+    .letter-section { margin-bottom: 2rem; }
+    .letter-section h2 {
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-bar">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#10B981"/>
+          <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">gdppercapita.fyi</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="countries-page">
+    <h1>All countries</h1>
+    <p class="subtitle">GDP per capita data for 197 countries and territories</p>
+
+    <div id="countries-list"></div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#10B981"/>
+            <path d="M8 22V14M13 22V10M18 22V16M23 22V8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>gdppercapita.fyi</span>
+        </div>
+        <p>A free, open-source tool to visualize and compare GDP per capita across countries using IMF data. Charts and code are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> and <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>. Data from IMF is subject to <a href="https://www.imf.org/external/terms.htm" target="_blank" rel="noopener">IMF Terms of Use</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <span class="footer-column-title">Countries</span>
+          <a href="/united-states">United States</a>
+          <a href="/china">China</a>
+          <a href="/germany">Germany</a>
+          <a href="/japan">Japan</a>
+          <a href="/india">India</a>
+          <a href="/united-kingdom">United Kingdom</a>
+          <a href="/france">France</a>
+          <a href="/countries">All</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Resources</span>
+          <a href="/articles/why-we-built-this">Why we built this</a>
+          <a href="/articles/why-nominal-not-ppp">Why nominal, not PPP</a>
+          <a href="/articles/country-names">Country names</a>
+          <a href="/articles/country-groups">Country groups</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/reddit">Reddit</a>
+        </div>
+        <div class="footer-column">
+          <span class="footer-column-title">Social</span>
+          <a href="https://github.com/sashaboulouds/gdppercapita" target="_blank" rel="noopener" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    fetch('/data/gdp-per-capita.json')
+      .then(r => r.json())
+      .then(data => {
+        const countries = data.countries
+          .map(c => ({ name: c.name, slug: c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }))
+          .sort((a, b) => a.name.localeCompare(b.name));
+
+        const byLetter = {};
+        countries.forEach(c => {
+          const letter = c.name[0].toUpperCase();
+          if (!byLetter[letter]) byLetter[letter] = [];
+          byLetter[letter].push(c);
+        });
+
+        const container = document.getElementById('countries-list');
+        Object.keys(byLetter).sort().forEach(letter => {
+          const section = document.createElement('div');
+          section.className = 'letter-section';
+          section.innerHTML = `<h2>${letter}</h2><div class="countries-grid">${
+            byLetter[letter].map(c => `<a href="/${c.slug}">${c.name}</a>`).join('')
+          }</div>`;
+          container.appendChild(section);
+        });
+      });
+  </script>
+</body>
+</html>
