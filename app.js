@@ -84,16 +84,14 @@ function updateMaxGdp() {
   maxGdp = Math.max(...data.countries.map(c => getLatestValue(c)));
 }
 
-// Update projections button state based on yearRangeMax
+// Update projections toggle state based on yearRangeMax
 function updateProjectionsButton() {
-  const btn = document.getElementById('btn-projections');
-  if (!btn) return;
+  const toggle = document.getElementById('projections-toggle');
+  if (!toggle) return;
   if (yearRangeMax > lastHistoricalYear) {
-    btn.classList.add('active');
-    btn.textContent = '✓ Projections';
+    toggle.classList.add('active');
   } else {
-    btn.classList.remove('active');
-    btn.textContent = '+ Projections';
+    toggle.classList.remove('active');
   }
 }
 
@@ -356,31 +354,26 @@ function setupActionButtons() {
     makeEditable(yearMinLabel, yearMinSlider, true);
     makeEditable(yearMaxLabel, yearMaxSlider, false);
 
-    // Projections button
-    const projectionsBtn = document.getElementById('btn-projections');
-    if (projectionsBtn) {
-      // Check if projections are already enabled (yearRangeMax > 2025)
+    // Projections toggle
+    const projectionsToggle = document.getElementById('projections-toggle');
+    if (projectionsToggle) {
+      // Set initial state
       if (yearRangeMax > lastHistoricalYear) {
-        projectionsBtn.classList.add('active');
-        projectionsBtn.textContent = '✓ Projections';
+        projectionsToggle.classList.add('active');
       }
 
-      projectionsBtn.addEventListener('click', () => {
-        if (projectionsBtn.classList.contains('active')) {
+      projectionsToggle.addEventListener('click', () => {
+        if (projectionsToggle.classList.contains('active')) {
           // Disable projections
-          projectionsBtn.classList.remove('active');
-          projectionsBtn.textContent = '+ Projections';
+          projectionsToggle.classList.remove('active');
           yearRangeMax = lastHistoricalYear;
-          yearMaxSlider.value = yearRangeMax;
-          yearMaxLabel.textContent = yearRangeMax;
         } else {
           // Enable projections
-          projectionsBtn.classList.add('active');
-          projectionsBtn.textContent = '✓ Projections';
+          projectionsToggle.classList.add('active');
           yearRangeMax = 2030;
-          yearMaxSlider.value = yearRangeMax;
-          yearMaxLabel.textContent = yearRangeMax;
         }
+        yearMaxSlider.value = yearRangeMax;
+        yearMaxLabel.textContent = yearRangeMax;
         updateYearRangeFill();
         updateMaxGdp();
         renderCountryList();

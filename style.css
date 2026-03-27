@@ -464,8 +464,13 @@ h1 {
   left: 0;
   width: 100%;
   height: 2px;
-  background: #10B981;
+  background: #b4b9c1;
   border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.year-range-slider:hover .year-range-fill::after {
+  background: #10B981;
 }
 
 .year-range-fill:active {
@@ -504,7 +509,7 @@ h1 {
   appearance: none;
   width: 18px;
   height: 18px;
-  background: #10B981;
+  background: #b4b9c1;
   border-radius: 50%;
   cursor: pointer;
   pointer-events: auto;
@@ -512,6 +517,11 @@ h1 {
   border: none;
   position: relative;
   z-index: 3;
+  transition: background 0.15s ease;
+}
+
+.year-range-slider:hover input[type="range"]::-webkit-slider-thumb {
+  background: #10B981;
 }
 
 .year-range-slider input[type="range"]::-moz-range-track {
@@ -523,11 +533,16 @@ h1 {
 .year-range-slider input[type="range"]::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  background: #10B981;
+  background: #b4b9c1;
   border-radius: 50%;
   cursor: pointer;
   pointer-events: auto;
   border: none;
+  transition: background 0.15s ease;
+}
+
+.year-range-slider:hover input[type="range"]::-moz-range-thumb {
+  background: #10B981;
 }
 
 #year-min-label,
@@ -563,34 +578,51 @@ h1 {
   outline: none;
 }
 
-.projections-btn {
+.projections-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.projections-toggle .projections-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  padding: 0.7rem 0.6rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--bg);
+  transition: all 0.15s;
+}
+
+.projections-toggle .projections-label {
   font-size: 0.75rem;
   font-family: var(--font);
   color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.15s;
-  margin-left: 8px;
-  min-width: 105px;
+  transition: color 0.15s;
 }
 
-.projections-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.projections-toggle:hover .projections-label {
+  color: var(--text);
 }
 
-.projections-btn.active {
+.projections-toggle.active .projections-checkbox {
   background: var(--accent);
   border-color: var(--accent);
+}
+
+.projections-toggle.active .projections-checkbox::after {
+  content: '✓';
   color: white;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.projections-toggle.active .projections-label {
+  color: var(--accent);
 }
 
 /* Chart Footer */
