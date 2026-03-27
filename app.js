@@ -90,10 +90,10 @@ function updateProjectionsButton() {
   if (!btn) return;
   if (yearRangeMax > lastHistoricalYear) {
     btn.classList.add('active');
-    btn.textContent = '✓ projections';
+    btn.textContent = '✓ Projections';
   } else {
     btn.classList.remove('active');
-    btn.textContent = '+ projections';
+    btn.textContent = '+ Projections';
   }
 }
 
@@ -306,7 +306,7 @@ function setupActionButtons() {
         if (isMin) {
           input.style.left = '0';
         } else {
-          input.style.right = '0';
+          input.style.right = '36px'; // Account for projections button (28px + 8px margin)
         }
         label.style.visibility = 'hidden';
         label.parentNode.insertBefore(input, isMin ? label.nextSibling : label);
@@ -362,21 +362,21 @@ function setupActionButtons() {
       // Check if projections are already enabled (yearRangeMax > 2025)
       if (yearRangeMax > lastHistoricalYear) {
         projectionsBtn.classList.add('active');
-        projectionsBtn.textContent = '✓ projections';
+        projectionsBtn.textContent = '✓ Projections';
       }
 
       projectionsBtn.addEventListener('click', () => {
         if (projectionsBtn.classList.contains('active')) {
           // Disable projections
           projectionsBtn.classList.remove('active');
-          projectionsBtn.textContent = '+ projections';
+          projectionsBtn.textContent = '+ Projections';
           yearRangeMax = lastHistoricalYear;
           yearMaxSlider.value = yearRangeMax;
           yearMaxLabel.textContent = yearRangeMax;
         } else {
           // Enable projections
           projectionsBtn.classList.add('active');
-          projectionsBtn.textContent = '✓ projections';
+          projectionsBtn.textContent = '✓ Projections';
           yearRangeMax = 2030;
           yearMaxSlider.value = yearRangeMax;
           yearMaxLabel.textContent = yearRangeMax;
@@ -631,18 +631,20 @@ function renderChart() {
   const y = d3.scaleLinear().domain([0, d3.max(allValues) * 1.1]).range([innerHeight, 0]);
 
   const xTicks = width < 350 ? 4 : width < 450 ? 6 : 10;
-  g.append('g')
+  const xAxisG = g.append('g')
     .attr('transform', `translate(0, ${innerHeight})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(xTicks))
-    .selectAll('text').style('font-size', '11px');
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(xTicks));
+  xAxisG.selectAll('text').style('font-size', '11px');
+  xAxisG.select('.domain').attr('d', `M0,0H${innerWidth}`);
 
   const yTicks = width < 400 ? 4 : 6;
   const yFormat = width < 400
     ? d => d >= 1000 ? '$' + (d/1000) + 'K' : '$' + d
     : d => '$' + d3.format(',.0f')(d);
-  g.append('g')
-    .call(d3.axisLeft(y).tickFormat(yFormat).ticks(yTicks))
-    .selectAll('text').style('font-size', '11px');
+  const yAxisG = g.append('g')
+    .call(d3.axisLeft(y).tickFormat(yFormat).ticks(yTicks));
+  yAxisG.selectAll('text').style('font-size', '11px');
+  yAxisG.select('.domain').attr('d', `M0,${innerHeight}V0`);
 
   g.append('g').selectAll('line').data(y.ticks(yTicks)).join('line')
     .attr('x1', 0).attr('x2', innerWidth)
@@ -1004,14 +1006,16 @@ function renderChartToSvg(svg, width, height) {
   const y = d3.scaleLinear().domain([0, d3.max(allValues) * 1.1]).range([innerHeight, 0]);
 
   // Axes
-  g.append('g')
+  const xAxisG2 = g.append('g')
     .attr('transform', `translate(0, ${innerHeight})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(6))
-    .selectAll('text').style('font-size', '11px').style('fill', '#666');
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(6));
+  xAxisG2.selectAll('text').style('font-size', '11px').style('fill', '#666');
+  xAxisG2.select('.domain').attr('d', `M0,0H${innerWidth}`);
 
-  g.append('g')
-    .call(d3.axisLeft(y).tickFormat(d => '$' + d3.format(',.0f')(d)).ticks(6))
-    .selectAll('text').style('font-size', '11px').style('fill', '#666');
+  const yAxisG2 = g.append('g')
+    .call(d3.axisLeft(y).tickFormat(d => '$' + d3.format(',.0f')(d)).ticks(6));
+  yAxisG2.selectAll('text').style('font-size', '11px').style('fill', '#666');
+  yAxisG2.select('.domain').attr('d', `M0,${innerHeight}V0`);
 
   // Grid
   g.append('g').selectAll('line').data(y.ticks(6)).join('line')
