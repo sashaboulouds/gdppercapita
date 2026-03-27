@@ -6,3 +6,39 @@
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+# Redirect .html to pretty URLs to avoid duplicate content
+[[redirects]]
+  from = "/changelog.html"
+  to = "/changelog"
+  status = 301
+
+[[redirects]]
+  from = "/reddit.html"
+  to = "/reddit"
+  status = 301
+
+[[redirects]]
+  from = "/france.html"
+  to = "/france"
+  status = 301
+
+[[redirects]]
+  from = "/articles/why-we-built-this.html"
+  to = "/articles/why-we-built-this"
+  status = 301
+
+[[redirects]]
+  from = "/articles/why-nominal-not-ppp.html"
+  to = "/articles/why-nominal-not-ppp"
+  status = 301
+
+[[redirects]]
+  from = "/articles/country-names.html"
+  to = "/articles/country-names"
+  status = 301
+
+[[redirects]]
+  from = "/articles/country-groups.html"
+  to = "/articles/country-groups"
+  status = 301

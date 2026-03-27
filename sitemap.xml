@@ -7,33 +7,45 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://gdppercapita.fyi/articles/why-we-built-this.html</loc>
+    <loc>https://gdppercapita.fyi/articles/why-we-built-this</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gdppercapita.fyi/articles/why-nominal-not-ppp.html</loc>
+    <loc>https://gdppercapita.fyi/articles/why-nominal-not-ppp</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gdppercapita.fyi/articles/country-names.html</loc>
+    <loc>https://gdppercapita.fyi/articles/country-names</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gdppercapita.fyi/changelog.html</loc>
+    <loc>https://gdppercapita.fyi/articles/country-groups</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gdppercapita.fyi/changelog</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://gdppercapita.fyi/reddit.html</loc>
+    <loc>https://gdppercapita.fyi/reddit</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://gdppercapita.fyi/france</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>
