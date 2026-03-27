@@ -622,8 +622,9 @@ h1 {
 }
 
 .projections-toggle.active .projections-label {
-  color: var(--accent);
+  color: var(--text);
 }
+
 
 /* Chart Footer */
 .chart-footer {
