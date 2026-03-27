@@ -6,6 +6,7 @@ let maxGdp = 0;
 let hoveredCountry = null;
 let yearRangeMin = 1980;
 let yearRangeMax = 2025; // Default to last historical year (no projections)
+let sortOrder = 'desc'; // 'desc' or 'asc'
 
 const COLORS = [
   '#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6',
@@ -70,6 +71,7 @@ async function init() {
   }
 
   setupCountrySearch();
+  setupSortBar();
   setupActionButtons();
   loadViewCount();
 
@@ -147,6 +149,27 @@ function setupCountrySearch() {
       input.value = '';
       renderCountryList();
     }
+  });
+}
+
+function updateSortYear() {
+  const sortYearSpans = document.querySelectorAll('.sort-year');
+  sortYearSpans.forEach(span => {
+    span.textContent = yearRangeMax;
+  });
+}
+
+function setupSortBar() {
+  const sortOption = document.getElementById('sort-gdp');
+  if (!sortOption) return;
+
+  updateSortYear();
+
+  sortOption.addEventListener('click', () => {
+    sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+    sortOption.dataset.order = sortOrder;
+    sortOption.querySelector('.sort-arrow').textContent = sortOrder === 'desc' ? '↓' : '↑';
+    renderCountryList();
   });
 }
 
@@ -389,25 +412,26 @@ function updateSelectedCount() {
 }
 
 function getCountriesSorted() {
-  return data.countries
-    .map(c => ({ ...c, value: getLatestValue(c), latestYear: getLatestYear(c), isGroup: false }))
-    .sort((a, b) => b.value - a.value);
+  const sorted = data.countries
+    .map(c => ({ ...c, value: getLatestValue(c), latestYear: getLatestYear(c), isGroup: false }));
+  return sorted.sort((a, b) => sortOrder === 'desc' ? b.value - a.value : a.value - b.value);
 }
 
 function getGroupsSorted() {
   if (!data.groups) return [];
-  return data.groups
-    .map(g => ({ ...g, value: getLatestValue(g), latestYear: getLatestYear(g), isGroup: true }))
-    .sort((a, b) => b.value - a.value);
+  const sorted = data.groups
+    .map(g => ({ ...g, value: getLatestValue(g), latestYear: getLatestYear(g), isGroup: true }));
+  return sorted.sort((a, b) => sortOrder === 'desc' ? b.value - a.value : a.value - b.value);
 }
 
 function getAllItemsSorted() {
   const countries = getCountriesSorted();
   const groups = getGroupsSorted();
-  return [...countries, ...groups].sort((a, b) => b.value - a.value);
+  return [...countries, ...groups].sort((a, b) => sortOrder === 'desc' ? b.value - a.value : a.value - b.value);
 }
 
 function renderCountryList(filter = '') {
+  updateSortYear();
   const container = document.getElementById('country-list');
   let items = getAllItemsSorted();
 
@@ -424,7 +448,7 @@ function renderCountryList(filter = '') {
   const selectedList = selectedCountries
     .map(code => items.find(c => c.code === code))
     .filter(Boolean)
-    .sort((a, b) => b.value - a.value);
+    .sort((a, b) => sortOrder === 'desc' ? b.value - a.value : a.value - b.value);
 
   let html = '';
 
@@ -617,7 +641,11 @@ function renderChart() {
         isProjection: year > lastHistoricalYear
       })).filter(d => d.value !== null && d.value > 0)
     };
-  }).filter(Boolean);
+  }).filter(Boolean).sort((a, b) => {
+    const aVal = a.values.length ? a.values[a.values.length - 1].value : 0;
+    const bVal = b.values.length ? b.values[b.values.length - 1].value : 0;
+    return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
+  });
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
   const x = d3.scaleLinear().domain([yearRangeMin, yearRangeMax]).range([0, innerWidth]);
@@ -992,7 +1020,11 @@ function renderChartToSvg(svg, width, height) {
         isProjection: year > lastHistoricalYear
       })).filter(d => d.value !== null && d.value > 0)
     };
-  }).filter(Boolean);
+  }).filter(Boolean).sort((a, b) => {
+    const aVal = a.values.length ? a.values[a.values.length - 1].value : 0;
+    const bVal = b.values.length ? b.values[b.values.length - 1].value : 0;
+    return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
+  });
 
   const allValues = series.flatMap(s => s.values.map(v => v.value));
   const x = d3.scaleLinear().domain([yearRangeMin, yearRangeMax]).range([0, innerWidth]);

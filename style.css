@@ -234,6 +234,19 @@ h1 {
   border-color: var(--accent);
 }
 
+.sort-box {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-family: var(--font);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.sort-box:hover {
+  color: var(--text);
+}
+
 .country-list {
   flex: 1;
   overflow-y: auto;
